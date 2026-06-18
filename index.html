@@ -1054,13 +1054,18 @@ async function submitForm() {
         const emailData = buildCompactEmailData(rmName, date, markets);
         const params = new URLSearchParams({
           to: 'formsubmissions@brightsidewindows.com',
-          subject: `[Brightside] Daily Submission — ${rmName} — ${date} — ${markets}`,
+          subject: '[Brightside] Daily Submission — ' + rmName + ' — ' + date + ' — ' + markets,
           data: encodeURIComponent(JSON.stringify(emailData))
         });
+        const gasURL = GAS_URL + '?' + params.toString();
+        console.log('Sending email to GAS:', gasURL.substring(0, 200));
+        // Use both image and fetch for redundancy
         const img = new Image();
-        img.src = GAS_URL + '?' + params.toString();
+        img.src = gasURL;
+        // Also try fetch with no-cors
+        fetch(gasURL, {mode: 'no-cors'}).catch(e => console.log('fetch email:', e));
       } catch(emailErr) {
-        console.log('Email send attempted:', emailErr);
+        console.error('Email error:', emailErr);
       }
     }
 

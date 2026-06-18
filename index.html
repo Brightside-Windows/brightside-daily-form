@@ -1048,16 +1048,17 @@ async function submitForm() {
       throw new Error(`ClickUp error: ${res.status} — ${JSON.stringify(errBody)}`);
     }
 
-    // Send email via Google Apps Script
+    // Send email via Google Apps Script using GET (bypasses CORS)
     if (GAS_URL) {
       try {
         const emailData = buildEmailData(rmName, date, markets);
-        await fetch(GAS_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify(emailData)
+        const params = new URLSearchParams({
+          to: emailData.to,
+          subject: emailData.subject,
+          html: emailData.html
         });
+        const img = new Image();
+        img.src = GAS_URL + '?' + params.toString();
       } catch(emailErr) {
         console.log('Email send attempted:', emailErr);
       }

@@ -723,7 +723,7 @@ window.addEventListener('load', () => {
 // ============================================================
 const CLICKUP_API_KEY = "pk_111998722_6IUJLD2JL542OF8NV4EGE62IJ9M9XFTI"; // ← Update if key changes
 const LIST_ID = "901327517949";
-const GAS_URL = "https://script.google.com/macros/s/AKfycby1_FpFF0suA34ExQ1IQEpML8qDb8gDqxFk3ar4UGoq0yyyZ4vNxbunRaP__pGi347B/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbw2VyXS7EqUvyPAKaKMOvSR1Bffdzy56RO2KqA_cAiuuF_X0thPec_0Rzer2luADUa_/exec";
 
 // Field IDs
 const FIELD_IDS = {
@@ -1051,11 +1051,11 @@ async function submitForm() {
     // Send email via Google Apps Script using GET (bypasses CORS)
     if (GAS_URL) {
       try {
-        const emailData = buildEmailData(rmName, date, markets);
+        const emailData = buildCompactEmailData(rmName, date, markets);
         const params = new URLSearchParams({
-          to: emailData.to,
-          subject: emailData.subject,
-          html: emailData.html
+          to: 'formsubmissions@brightsidewindows.com',
+          subject: `[Brightside] Daily Submission — ${rmName} — ${date} — ${markets}`,
+          data: encodeURIComponent(JSON.stringify(emailData))
         });
         const img = new Image();
         img.src = GAS_URL + '?' + params.toString();
@@ -1242,6 +1242,48 @@ function buildEmailData(rmName, date, markets) {
     body: lines.join('\n'),
     to: 'formsubmissions@brightsidewindows.com'
   };
+}
+
+// ============================================================
+// BUILD COMPACT EMAIL DATA (sent to Apps Script)
+// ============================================================
+function buildCompactEmailData(rmName, date, markets) {
+  const data = {
+    rm: rmName,
+    date: date,
+    marketNames: markets,
+    revenue: document.getElementById('tot-revenue').textContent,
+    revNeeded: document.getElementById('tot-rev-needed').textContent,
+    apptsRan: document.getElementById('tot-appts-ran').textContent,
+    apptsNotRan: document.getElementById('tot-appts-not-ran').textContent,
+    apptsAdded: document.getElementById('tot-appts-added').textContent,
+    apptsNeeded: document.getElementById('tot-appts-needed').textContent,
+    eod: document.getElementById('eod-notes').value || '',
+    markets: selectedMarkets.map(market => {
+      const g = (f) => mf(market, f);
+      const v = (f) => { const el = document.getElementById(g(f)); return (el && el.value) ? el.value : ''; };
+      return {
+        name: market,
+        revenue: v('current-revenue'),
+        revNeeded: v('revenue-needed'),
+        apptsRan: v('appts-ran'),
+        apptsNotRan: v('appts-not-ran'),
+        apptsAdded: v('appts-added'),
+        apptsNeeded: v('appts-needed'),
+        reps: v('reps-field'),
+        closers: v('closers-field'),
+        doors: v('doors'),
+        convos: v('convos'),
+        apptsSet: v('appts-set'),
+        shadowed: v('shadowed'),
+        recCalls: v('rec-calls'),
+        interviews: v('interviews-ran'),
+        hired: v('candidates-hired'),
+        notes: v('notes')
+      };
+    })
+  };
+  return data;
 }
 
 // ============================================================

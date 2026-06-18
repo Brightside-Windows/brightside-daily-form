@@ -1331,35 +1331,38 @@ loadMarketFields();
 // LOAD REGIONAL MANAGERS FROM CLICKUP
 // ============================================================
 async function loadRegionalManagers() {
+  const RM_FIELD_ID = 'f95adecd-f16a-4b9a-84b2-17ebbe2180d5';
+  const select = document.getElementById('sel-regional-manager');
   try {
     const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
       headers: { 'Authorization': CLICKUP_API_KEY }
     });
     const data = await res.json();
-    const rmField = data.fields.find(f => f.name === 'Regional Manager');
-    if (!rmField || !rmField.type_config || !rmField.type_config.options) return;
-
-    const select = document.getElementById('sel-regional-manager');
+    const rmField = data.fields.find(f => f.id === RM_FIELD_ID);
+    if (!rmField || !rmField.type_config || !rmField.type_config.options) {
+      throw new Error('Field not found');
+    }
     select.innerHTML = '<option value="">— Select —</option>';
-
-    rmField.type_config.options.forEach(opt => {
-      const option = document.createElement('option');
-      option.value = opt.orderindex;
-      option.textContent = opt.name;
-      select.appendChild(option);
-    });
+    rmField.type_config.options
+      .sort((a,b) => a.orderindex - b.orderindex)
+      .forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.orderindex;
+        option.textContent = opt.name;
+        select.appendChild(option);
+      });
+    console.log('Regional Managers loaded from ClickUp:', rmField.type_config.options.map(o=>o.name));
   } catch(e) {
-    console.error('Failed to load Regional Managers:', e);
-    // Fallback to static list
-    const select = document.getElementById('sel-regional-manager');
+    console.error('Failed to load Regional Managers — using fallback:', e.message);
     select.innerHTML = `
       <option value="">— Select —</option>
       <option value="0">Edgar Reyes</option>
       <option value="1">James Amis</option>
-      <option value="2">Justin Wimberly</option>
-      <option value="3">Garrett Daly</option>
-      <option value="4">Undecided</option>
-      <option value="5">Anthony Sylvester</option>`;
+      <option value="2">Garrett Daly</option>
+      <option value="3">Undecided</option>
+      <option value="4">Anthony Sylvester</option>
+      <option value="5">Cade Perrins</option>
+      <option value="6">Matt Elkins</option>`;
   }
 }
 </script>

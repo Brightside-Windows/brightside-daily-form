@@ -1043,7 +1043,10 @@ async function submitForm() {
       body: JSON.stringify({ name: taskName, custom_fields: customFields })
     });
 
-    if (!res.ok) throw new Error(`ClickUp error: ${res.status}`);
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => ({}));
+      throw new Error(`ClickUp error: ${res.status} — ${JSON.stringify(errBody)}`);
+    }
 
     // Send email via Google Apps Script
     if (GAS_URL && GAS_URL !== 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {

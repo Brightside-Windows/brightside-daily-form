@@ -723,7 +723,7 @@ window.addEventListener('load', () => {
 // ============================================================
 const CLICKUP_API_KEY = "pk_111998722_6IUJLD2JL542OF8NV4EGE62IJ9M9XFTI"; // ← Update if key changes
 const LIST_ID = "901327517949";
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxdh91Ayk-0HW8jB1V4YLSMU-xF-t5yTrjlIqZ72OUQDYwbQhnD2VjPFs3n0AGWpe8/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwDeuoUot2-w_2t_BgF05HsrIv7QLkEjWP3qxcpFQ3ZrF7rRr8vHAg5FFltckxHhieI/exec";
 
 // Field IDs
 const FIELD_IDS = {
@@ -1049,14 +1049,18 @@ async function submitForm() {
     }
 
     // Send email via Google Apps Script
-    if (GAS_URL && GAS_URL !== 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-      const emailData = buildEmailData(rmName, date, markets);
-      await fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(emailData)
-      });
+    if (GAS_URL) {
+      try {
+        const emailData = buildEmailData(rmName, date, markets);
+        await fetch(GAS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(emailData)
+        });
+      } catch(emailErr) {
+        console.log('Email send attempted:', emailErr);
+      }
     }
 
     // Show success

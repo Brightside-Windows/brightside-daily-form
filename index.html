@@ -415,13 +415,7 @@
       <div class="field-row">
         <label>Regional Manager</label>
         <select id="sel-regional-manager">
-          <option value="">— Select —</option>
-          <option value="0">Edgar Reyes</option>
-          <option value="1">James Amis</option>
-          <option value="2">Justin Wimberly</option>
-          <option value="3">Garrett Daly</option>
-          <option value="5">Anthony Sylvester</option>
-          <option value="4">Undecided</option>
+          <option value="">Loading...</option>
         </select>
       </div>
       <div class="field-row">
@@ -821,11 +815,14 @@ let currentStep = 0;
 // ============================================================
 // INIT
 // ============================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // Set today's date
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('sel-date').value = today;
   document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Load Regional Manager options from ClickUp
+  await loadRegionalManagers();
 
   // Build market grid
   const grid = document.getElementById('market-grid');
@@ -1329,6 +1326,42 @@ async function loadMarketFields() {
 
 // Load fields on init
 loadMarketFields();
+
+// ============================================================
+// LOAD REGIONAL MANAGERS FROM CLICKUP
+// ============================================================
+async function loadRegionalManagers() {
+  try {
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
+      headers: { 'Authorization': CLICKUP_API_KEY }
+    });
+    const data = await res.json();
+    const rmField = data.fields.find(f => f.name === 'Regional Manager');
+    if (!rmField || !rmField.type_config || !rmField.type_config.options) return;
+
+    const select = document.getElementById('sel-regional-manager');
+    select.innerHTML = '<option value="">— Select —</option>';
+
+    rmField.type_config.options.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.orderindex;
+      option.textContent = opt.name;
+      select.appendChild(option);
+    });
+  } catch(e) {
+    console.error('Failed to load Regional Managers:', e);
+    // Fallback to static list
+    const select = document.getElementById('sel-regional-manager');
+    select.innerHTML = `
+      <option value="">— Select —</option>
+      <option value="0">Edgar Reyes</option>
+      <option value="1">James Amis</option>
+      <option value="2">Justin Wimberly</option>
+      <option value="3">Garrett Daly</option>
+      <option value="4">Undecided</option>
+      <option value="5">Anthony Sylvester</option>`;
+  }
+}
 </script>
 
 </body>

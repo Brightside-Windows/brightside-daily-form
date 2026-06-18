@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brightside Windows — Regional Daily Submission</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C41E3A;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #ffffff;
+    --border: #e2e2e2;
+    --muted: #888;
+    --input-bg: #f8f8f8;
+    --check-green: #22c55e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Barlow', sans-serif; background: #f0f0f0; color: var(--black); min-height: 100vh; }
+
+  /* HEADER */
+  #header {
+    background: var(--black);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  #header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 2px solid var(--red);
+  }
+  #header-top h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  #header-top h1 span { color: var(--red); }
+  #totals-bar {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .total-item {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px 16px;
+    text-align: center;
+    border-right: 1px solid #222;
+  }
+  .total-item:last-child { border-right: none; }
+  .total-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+  }
+  .total-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    display: block;
+  }
+  .total-value.currency::before { content: '$'; font-size: 14px; color: var(--muted); }
+
+  /* MAIN */
+  #main { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* STEP INDICATOR */
+  #step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .step-pill {
+    flex: 1;
+    padding: 10px 4px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: white;
+    border-right: 1px solid var(--border);
+    cursor: default;
+    transition: all 0.2s;
+  }
+  .step-pill:last-child { border-right: none; }
+  .step-pill.active { background: var(--red); color: white; }
+  .step-pill.done { background: #f0fdf4; color: #16a34a; }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--black);
+    color: white;
+    padding: 12px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-header .accent { color: var(--red); }
+  .card-body { padding: 20px; }
+
+  /* MARKET CARD */
+  .market-card { border-left: 4px solid var(--red); }
+  .market-card .card-header { background: #1a1a1a; font-size: 16px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 18px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* FORM FIELDS */
+  .field-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+  }
+  .field-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  input[type="text"], input[type="number"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    background: var(--input-bg);
+    color: var(--black);
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--red);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* CHECKBOX ROW */
+  .check-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 500px) { .check-group { grid-template-columns: 1fr; } }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--input-bg);
+  }
+  .check-item:hover { border-color: var(--red); background: #fff5f5; }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: white;
+  }
+  .check-item.checked .check-box {
+    background: var(--check-green);
+    border-color: var(--check-green);
+  }
+  .check-item.checked .check-box::after {
+    content: '✓';
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .check-item.checked { border-color: var(--check-green); background: #f0fdf4; }
+  .check-label { font-size: 13px; font-weight: 500; color: #333; }
+
+  /* MARKET SELECT GRID */
+  #market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .market-select-item {
+    padding: 10px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555;
+    background: white;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .market-select-item:hover { border-color: var(--red); color: var(--red); }
+  .market-select-item.selected { border-color: var(--red); background: var(--red); color: white; }
+
+  /* BUTTONS */
+  .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--red); color: white; }
+  .btn-primary:hover { background: #a01830; }
+  .btn-secondary { background: var(--black); color: white; }
+  .btn-secondary:hover { background: #333; }
+  .btn-outline { background: white; color: var(--black); border: 2px solid var(--black); }
+  .btn-outline:hover { background: var(--black); color: white; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* STEP PANELS */
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+
+  /* SUCCESS */
+  #success-panel {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  #success-panel .icon { font-size: 64px; margin-bottom: 16px; }
+  #success-panel h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  #success-panel p { color: var(--muted); font-size: 15px; }
+
+  /* SUBMIT SPINNER */
+  #submit-spinner { display: none; }
+  .spinner {
+    width: 20px; height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* DROPDOWN */
+  select { cursor: pointer; }
+
+  /* CURRENCY INPUT */
+  .currency-wrap { position: relative; }
+  .currency-wrap::before {
+    content: '$';
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .currency-wrap input { padding-left: 24px; }
+
+  /* NOTE BELOW FIELD */
+  .field-note { font-size: 11px; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-top">
+    <h1>Brightside <span>Windows</span> — Regional Daily Report</h1>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#888;letter-spacing:1px;" id="header-date"></div>
+  </div>
+  <div id="totals-bar">
+    <div class="total-item">
+      <span class="total-label">Current Revenue</span>
+      <span class="total-value currency" id="tot-revenue">0</span>
+    </div>
+    <div class="total-item">
+      <span class="total-label">Revenue Needed</span>
+      <span class="total-value currency" id="tot-rev-needed">0</span>
+    </div>
+    <div class="total-item">
+      <span class="total-label">Appts Ran</span>
+      <span class="total-value" id="tot-appts-ran">0</span>
+    </div>
+    <div class="total-item">
+      <span class="total-label">Appts Not Ran</span>
+      <span class="total-value" id="tot-appts-not-ran">0</span>
+    </div>
+    <div class="total-item">
+      <span class="total-label">Appts Added</span>
+      <span class="total-value" id="tot-appts-added">0</span>
+    </div>
+    <div class="total-item">
+      <span class="total-label">Appts Needed</span>
+      <span class="total-value" id="tot-appts-needed">0</span>
+    </div>
+  </div>
+</div>
+
+<!-- PASSWORD GATE -->
+<div id="password-gate" style="display:flex;align-items:center;justify-content:center;min-height:80vh;padding:24px;">
+  <div class="card" style="max-width:400px;width:100%;">
+    <div class="card-header" style="justify-content:center;">🔒 <span class="accent" style="margin-left:8px;">Brightside Windows</span></div>
+    <div class="card-body" style="text-align:center;">
+      <p style="font-size:14px;color:#555;margin-bottom:20px;">Enter your access code to continue.</p>
+      <div class="field-row" style="text-align:left;">
+        <label>Access Code</label>
+        <input type="password" id="password-input" placeholder="Enter code..." onkeydown="if(event.key==='Enter')checkPassword()">
+      </div>
+      <p id="password-error" style="color:var(--red);font-size:13px;display:none;margin-top:8px;">Incorrect code. Please try again.</p>
+      <div class="btn-row" style="justify-content:center;margin-top:16px;">
+        <button class="btn btn-primary" style="width:100%;" onclick="checkPassword()">Enter →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="main" style="display:none;">
+
+<!-- STEP INDICATOR -->
+<div id="step-indicator">
+  <div class="step-pill active" id="pill-0">Markets</div>
+  <div class="step-pill" id="pill-1">Personal KPIs</div>
+  <div class="step-pill" id="pill-2">Market Details</div>
+  <div class="step-pill" id="pill-3">Follow Up</div>
+  <div class="step-pill" id="pill-4">Submit</div>
+</div>
+
+<!-- STEP 0: MARKET SELECTION -->
+<div class="step-panel active" id="step-0">
+  <div class="card">
+    <div class="card-header">Step 1 — <span class="accent">Select Your Markets</span></div>
+    <div class="card-body">
+      <div class="field-row">
+        <label>Regional Manager</label>
+        <select id="sel-regional-manager">
+          <option value="">— Select —</option>
+          <option value="27582830-f518-4870-95c2-85fe0233eec9">Edgar Reyes</option>
+          <option value="761503c4-46fc-447a-9dcd-0d9022ee0b86">James Amis</option>
+          <option value="dfda8184-e9ce-45d4-a65d-aca7ce4821b8">Justin Wimberly</option>
+          <option value="7265baf7-c189-4132-a289-9a37aaa09777">Garrett Daly</option>
+          <option value="9313f2bc-0946-435c-b9f4-ae9eeac5fa69">Anthony Sylvester</option>
+          <option value="fafc50a3-eb8f-42e5-8024-78168b1ad84c">Undecided</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label>Date</label>
+        <input type="date" id="sel-date">
+      </div>
+      <p style="font-size:13px;font-weight:600;color:#333;margin-bottom:10px;">Select all markets you're covering today:</p>
+      <div id="market-grid"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goToStep1()">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1: PERSONAL KPIs -->
+<div class="step-panel" id="step-1">
+  <div class="card">
+    <div class="card-header">Step 2 — <span class="accent">Personal KPIs</span></div>
+    <div class="card-body">
+      <p class="section-label">Admin Checklist</p>
+      <div class="check-group">
+        <label class="check-item" onclick="toggleCheck(this,'emails-checked')">
+          <input type="checkbox" id="emails-checked">
+          <div class="check-box"></div>
+          <span class="check-label">Emails Checked</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'schedule-posted')">
+          <input type="checkbox" id="schedule-posted">
+          <div class="check-box"></div>
+          <span class="check-label">Schedule Posted</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'office-clean')">
+          <input type="checkbox" id="office-clean">
+          <div class="check-box"></div>
+          <span class="check-label">Office Clean</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'office-stocked')">
+          <input type="checkbox" id="office-stocked">
+          <div class="check-box"></div>
+          <span class="check-label">Office Stocked</span>
+        </label>
+      </div>
+
+      <p class="section-label">Regional Totals (auto-summed from markets)</p>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Current Revenue</label>
+          <div class="currency-wrap"><input type="number" id="kpi-revenue" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
+        </div>
+        <div class="field-row">
+          <label>Revenue Needed</label>
+          <div class="currency-wrap"><input type="number" id="kpi-rev-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
+        </div>
+        <div class="field-row">
+          <label>Appointments Ran</label>
+          <input type="number" id="kpi-appts-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
+        </div>
+        <div class="field-row">
+          <label>Appointments Not Ran</label>
+          <input type="number" id="kpi-appts-not-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
+        </div>
+        <div class="field-row">
+          <label>Appointments Added</label>
+          <input type="number" id="kpi-appts-added" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
+        </div>
+        <div class="field-row">
+          <label>Appointments Needed</label>
+          <input type="number" id="kpi-appts-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
+        </div>
+      </div>
+      <p class="field-note">Regional totals update automatically as you fill in each market below.</p>
+
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="goToStep(0)">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(2)">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: MARKET DETAILS (dynamically generated) -->
+<div class="step-panel" id="step-2">
+  <div id="market-sections"></div>
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goToStep(1)">← Back</button>
+    <button class="btn btn-primary" onclick="goToStep(3)">Continue →</button>
+  </div>
+</div>
+
+<!-- STEP 3: FOLLOW UP -->
+<div class="step-panel" id="step-3">
+  <div class="card">
+    <div class="card-header">Step 4 — <span class="accent">Follow Up</span></div>
+    <div class="card-body">
+
+      <p class="section-label">Missing Money</p>
+      <div class="check-group" style="grid-template-columns:1fr;">
+        <label class="check-item" onclick="toggleCheck(this,'missing-money-flag')">
+          <input type="checkbox" id="missing-money-flag">
+          <div class="check-box"></div>
+          <span class="check-label">Missing Money Flag</span>
+        </label>
+      </div>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Homeowner</label>
+          <input type="text" id="mm-homeowner" placeholder="Homeowner name">
+        </div>
+        <div class="field-row">
+          <label>Contact (who made contact)</label>
+          <input type="text" id="mm-contact" placeholder="Rep name">
+        </div>
+        <div class="field-row">
+          <label>Status</label>
+          <input type="text" id="mm-status" placeholder="e.g. Pending, Resolved">
+        </div>
+        <div class="field-row">
+          <label>Amount</label>
+          <div class="currency-wrap"><input type="number" id="mm-amount" placeholder="0.00"></div>
+        </div>
+        <div class="field-row">
+          <label>Pay Terms</label>
+          <select id="mm-pay-terms">
+            <option value="">— Select —</option>
+            <option value="Cash">Cash</option>
+            <option value="AquaFinance">AquaFinance</option>
+            <option value="Momnt">Momnt</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <label>Follow Up Date</label>
+          <input type="date" id="mm-follow-up-date">
+        </div>
+      </div>
+      <div class="field-row">
+        <label>Notes</label>
+        <textarea id="mm-notes" placeholder="Additional notes..."></textarea>
+      </div>
+
+      <p class="section-label">Need to Reschedule / Ran & Pending</p>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Homeowner</label>
+          <input type="text" id="rs-homeowner" placeholder="Homeowner name">
+        </div>
+        <div class="field-row">
+          <label>Status</label>
+          <input type="text" id="rs-status" placeholder="e.g. Reschedule, Pending, Ran">
+        </div>
+        <div class="field-row">
+          <label>Contact</label>
+          <input type="text" id="rs-contact" placeholder="Rep name">
+        </div>
+        <div class="field-row">
+          <label>Follow Up Date</label>
+          <input type="date" id="rs-follow-up-date">
+        </div>
+      </div>
+      <div class="field-row">
+        <label>Notes</label>
+        <textarea id="rs-notes" placeholder="Additional notes..."></textarea>
+      </div>
+
+      <p class="section-label">Cancellations</p>
+      <div class="grid-2">
+        <div class="field-row">
+          <label>Homeowner</label>
+          <input type="text" id="can-homeowner" placeholder="Homeowner name">
+        </div>
+        <div class="field-row">
+          <label>Reason</label>
+          <input type="text" id="can-reason" placeholder="Reason for cancellation">
+        </div>
+        <div class="field-row">
+          <label>Contact</label>
+          <input type="text" id="can-contact" placeholder="Rep name">
+        </div>
+        <div class="field-row">
+          <label>Follow Up Date</label>
+          <input type="date" id="can-follow-up-date">
+        </div>
+      </div>
+      <div class="field-row">
+        <label>Notes</label>
+        <textarea id="can-notes" placeholder="Additional notes..."></textarea>
+      </div>
+
+      <p class="section-label">Systems Purge</p>
+      <div class="check-group">
+        <label class="check-item" onclick="toggleCheck(this,'purge-google')">
+          <input type="checkbox" id="purge-google">
+          <div class="check-box"></div>
+          <span class="check-label">Google Suite</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-bamboo')">
+          <input type="checkbox" id="purge-bamboo">
+          <div class="check-box"></div>
+          <span class="check-label">BambooHR</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-enzy')">
+          <input type="checkbox" id="purge-enzy">
+          <div class="check-box"></div>
+          <span class="check-label">Enzy</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-siro')">
+          <input type="checkbox" id="purge-siro">
+          <div class="check-box"></div>
+          <span class="check-label">SIRO</span>
+        </label>
+      </div>
+
+      <p class="section-label">EOD Regional Notes</p>
+      <div class="field-row">
+        <textarea id="eod-notes" placeholder="End of day regional wrap-up, flags for VP..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="goToStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(4)">Review & Submit →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: REVIEW & SUBMIT -->
+<div class="step-panel" id="step-4">
+  <div class="card">
+    <div class="card-header">Step 5 — <span class="accent">Review & Submit</span></div>
+    <div class="card-body">
+      <div id="review-summary" style="margin-bottom:20px;font-size:14px;line-height:1.7;color:#333;"></div>
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="goToStep(3)">← Back</button>
+        <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">
+          <span id="submit-text">Submit Daily Report</span>
+          <span id="submit-spinner"><span class="spinner"></span>Submitting...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div id="success-panel">
+  <div class="icon">✅</div>
+  <h2>Report Submitted!</h2>
+  <p style="margin-bottom:8px;">Your daily submission has been logged in ClickUp.</p>
+  <p>A summary email has been sent to your ops inbox.</p>
+  <div class="btn-row" style="justify-content:center;margin-top:24px;">
+    <button class="btn btn-primary" onclick="resetForm()">Submit Another</button>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /form-content -->
+
+<script>
+// ============================================================
+// PASSWORD GATE
+// ============================================================
+function checkPassword() {
+  const input = document.getElementById('password-input').value;
+  const error = document.getElementById('password-error');
+  if (input === 'Brightside2026') {
+    document.getElementById('password-gate').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    sessionStorage.setItem('bs_auth', '1');
+  } else {
+    error.style.display = 'block';
+    document.getElementById('password-input').value = '';
+    document.getElementById('password-input').focus();
+  }
+}
+
+// Auto-unlock if already authenticated this session
+window.addEventListener('load', () => {
+  if (sessionStorage.getItem('bs_auth') === '1') {
+    document.getElementById('password-gate').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }
+});
+
+// ============================================================
+// CONFIG
+// ============================================================
+const CLICKUP_API_KEY = "pk_111998722_6IUJLD2JL542OF8NV4EGE62IJ9M9XFTI"; // ← Update if key changes
+const LIST_ID = "901327517949";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzJL90Wey43mfuorFvuB4RqVAO1sAYXzpk_EHoAE_DhBMsr1ohKX0JTlFb4eCf4pdlW/exec";
+
+// Field IDs
+const FIELD_IDS = {
+  regionalManager: "f95adecd-f16a-4b9a-84b2-17ebbe2180d5",
+  region: "84100130-0d11-43c9-b7d0-fbfae0b1c54b",
+  marketsCovered: "0f6e3d30-61ea-4e70-8e11-c19228659932",
+  todaysDate: "424b0281-9a63-4676-a54f-e0153e32a080",
+  currentRevenue: "35c00f3f-762f-4488-84cc-46aadc43452a",
+  revenueNeeded: "28592872-bf43-47a1-a9d4-19387895b506",
+  apptsRan: "885e1467-e99f-4237-b03e-0e22087d8647",
+  apptsNotRan: "a98fbedd-5dda-4735-abe4-c5cd17715545",
+  apptsAdded: "8ba4141f-bf4d-4f2c-b3e9-a65a121192b1",
+  apptsNeeded: "0f56f13e-9c39-418c-b5a0-10b8e5d35cc8",
+  emailsChecked: "13f98ecf-d8c3-4485-87d6-e1deef62d0eb",
+  officeClean: "dd9e2f58-a435-4a7c-a3d8-eb9761526d32",
+  officeStocked: "513f66d3-c1e2-41f2-b182-a8c54b713d47",
+  schedulePosted: "5f47ad45-5711-413c-847f-e09a9e2d30f4",
+  missingMoneyFlag: "79b30be5-37c2-46c9-94e3-597fcf7dc228",
+  missingMoneyNotes: "1642d940-cdba-4eb7-a5d7-3f834668ac83",
+  systemsPurgeGoogle: "7eb6894d-2378-493a-83fd-6cb666e2e2bb",
+  systemsPurgeBamboo: "0ed5af9f-be7f-4d41-bfee-55e3a55241a4",
+  systemsPurgeEnzy: "1f061bd1-1a7c-4a93-aa33-b51afc615c56",
+  systemsPurgeSiro: "a0ef1b63-0c0f-4937-8e17-76d0ef6bc01a",
+  rescheduleHomeowner: "fc3a1b2e-5d8f-4a9c-b6e7-2d1f8a3c5b9e",
+  rescheduleStatus: "e2d4f6a8-b0c2-4e8f-a6d0-8c2e4f6a8b0c",
+  rescheduleContact: "d0e2f4a6-b8c0-4a6e-8d2f-0e2d4f6a8b0c",
+  rescheduleNotes: "c8d0e2f4-a6b8-4c0e-2f4a-6b8c0d2e4f6a",
+  rescheduleFollowUp: "b6c8d0e2-f4a6-4b8c-0d2e-4f6a8b0c2d4e",
+  cancellationHomeowner: "a4b6c8d0-e2f4-4a6b-8c0d-2e4f6a8b0c2d",
+  cancellationReason: "82a4b6c8-d0e2-4f4a-6b8c-0d2e4f6a8b0c",
+  cancellationContact: "60a2c4e6-b8d0-4f2a-4c6e-8b0d2f4a6c8e",
+  cancellationNotes: "4e8a0c2e-6b4d-4f8a-2c0e-4b8d6f0a2c4e",
+  cancellationFollowUp: "2c6a8e0c-4b2d-4e6a-0c8e-2b4d6f8a0c2e",
+  eodNotes: "24bd442c-edcf-46ba-a85a-bb9c9f633066",
+  vpFlags: "be6c0c0a-565b-4576-ac24-e0bb4ad207b0",
+};
+
+// Markets config
+const REGIONS = [
+  { region: "Oregon Region", regionId: "3c835a80-506f-4e45-9e90-b376507464d5", markets: [
+    { name: "Portland OR", labelId: "5a069563-2035-4531-9265-cbb3ddeafe7b" },
+    { name: "Vancouver WA", labelId: "65e8f13d-5851-4ece-bd23-26f6d9444cef" },
+    { name: "Salem OR", labelId: "9482f237-a2d9-4c7e-826c-6eb9bf909182" },
+    { name: "Eugene OR", labelId: "21b3b2a7-2cbc-4fe8-b6f6-e1a87d898179" },
+    { name: "Bend OR", labelId: "8193d987-f4df-4a5e-ada6-9f21a2b7bb82" },
+    { name: "Medford OR", labelId: "a86918ce-1948-4105-8d4a-a1e46d10c03f" },
+  ]},
+  { region: "Washington W Region", regionId: "b9753803-2c2a-4a92-bb13-4e4558a6e9ce", markets: [
+    { name: "Seattle WA", labelId: "aded9767-f938-4ba6-8415-23fa1c055061" },
+    { name: "Everett WA", labelId: "16f4c82f-cee1-43c1-9eee-f94629bbe0b2" },
+    { name: "Silverdale WA", labelId: "839543a1-bc44-4cc2-b4e8-4c986a826ce7" },
+  ]},
+  { region: "Washington E Region", regionId: "37c8b2e2-214b-4bdd-b47b-1e649b39bab8", markets: [
+    { name: "Kennewick WA", labelId: "72fc8bd7-a1da-4684-a956-5759558948c2" },
+    { name: "Spokane WA", labelId: "3330e7a3-147c-439b-a6a1-e7e051df277c" },
+    { name: "Billings MT", labelId: "499fc008-bffb-412e-848f-44ab1325c6e1" },
+  ]},
+  { region: "Northwest Region", regionId: "b8100c85-9546-40d1-bb30-6d98ffb047b4", markets: [
+    { name: "Boise ID", labelId: "a210c02e-501e-458f-a6a7-8c02d2fe2817" },
+    { name: "Salt Lake City UT", labelId: "fb1735b2-9f25-4deb-8f39-b333057cfa57" },
+    { name: "Denver CO", labelId: "952902a4-9a8a-41e8-9b07-7a32006d670b" },
+    { name: "Reno NV", labelId: "8acb03c5-ca9c-441c-a9f0-5ce17c422e31" },
+  ]},
+  { region: "Central North Region", regionId: "1a8a883f-c5d1-4464-9eb2-19d12f8c28bb", markets: [
+    { name: "Indianapolis IN", labelId: "16047b67-d1b8-4a25-a082-9209b5b6b333" },
+    { name: "Kansas City KC", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a7" },
+    { name: "St Louis MO", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a8" },
+    { name: "Columbus OH", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a9" },
+    { name: "Minneapolis MN", labelId: "5817047f-8027-4ae2-8c88-3d9734df24aa" },
+  ]},
+  { region: "Central South Region", regionId: "bf8d2309-955a-49f4-83d8-d8ee15af5d26", markets: [
+    { name: "Dallas Fort Worth TX", labelId: "ea841624-db03-4ccf-852f-3386ee0efdf7" },
+    { name: "Houston TX", labelId: "c5a5fe1f-9f46-4f91-bfe5-e521e5f80efd" },
+    { name: "Austin TX", labelId: "e424b831-df31-4214-9c77-4e531ca1e4f0" },
+    { name: "Oklahoma City TX", labelId: "c2c38e78-7dfe-48a1-8c74-0df4dbc4dd16" },
+    { name: "Dallas TX", labelId: "41bfe1a2-d3b6-455b-88e3-0ba3e3d69ca0" },
+  ]},
+  { region: "South East Region", regionId: "f1d334d2-13fc-4688-9df4-d1bdfc4572d1", markets: [
+    { name: "Nashville TN", labelId: "5817047f-8027-4ae2-8c88-3d9734df24ab" },
+  ]},
+];
+
+// Per-market field IDs (suffix -> field id per market)
+const MARKET_FIELDS = {};
+
+// This object is populated at the bottom with all per-market field IDs
+// Format: MARKET_FIELDS["Market Name"] = { "Suffix": "field-id", ... }
+
+// ============================================================
+// STATE
+// ============================================================
+let selectedMarkets = [];
+let currentStep = 0;
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sel-date').value = today;
+  document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Build market grid
+  const grid = document.getElementById('market-grid');
+  REGIONS.forEach(r => {
+    r.markets.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'market-select-item';
+      div.textContent = m.name;
+      div.dataset.market = m.name;
+      div.onclick = () => toggleMarket(div, m.name);
+      grid.appendChild(div);
+    });
+  });
+});
+
+// ============================================================
+// MARKET SELECTION
+// ============================================================
+function toggleMarket(el, name) {
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    selectedMarkets = selectedMarkets.filter(m => m !== name);
+  } else {
+    el.classList.add('selected');
+    selectedMarkets.push(name);
+  }
+}
+
+function goToStep1() {
+  if (!document.getElementById('sel-regional-manager').value) {
+    alert('Please select your name before continuing.');
+    return;
+  }
+  if (selectedMarkets.length === 0) {
+    alert('Please select at least one market.');
+    return;
+  }
+  buildMarketSections();
+  goToStep(1);
+}
+
+// ============================================================
+// BUILD MARKET SECTIONS
+// ============================================================
+function buildMarketSections() {
+  const container = document.getElementById('market-sections');
+  container.innerHTML = '';
+
+  selectedMarkets.forEach((market, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card market-card';
+    card.innerHTML = `
+      <div class="card-header">Market ${idx+1} — <span class="accent">${market}</span></div>
+      <div class="card-body">
+
+        <p class="section-label">Reporting</p>
+        <div class="grid-2">
+          <div class="field-row"><label>Current Revenue</label><div class="currency-wrap"><input type="number" id="${mf(market,'current-revenue')}" placeholder="0" oninput="updateTotals()"></div></div>
+          <div class="field-row"><label>Revenue Needed</label><div class="currency-wrap"><input type="number" id="${mf(market,'revenue-needed')}" placeholder="0" oninput="updateTotals()"></div></div>
+          <div class="field-row"><label>Appointments Ran</label><input type="number" id="${mf(market,'appts-ran')}" placeholder="0" oninput="updateTotals()"></div>
+          <div class="field-row"><label>Appointments Not Ran</label><input type="number" id="${mf(market,'appts-not-ran')}" placeholder="0" oninput="updateTotals()"></div>
+          <div class="field-row"><label>Appointments Added</label><input type="number" id="${mf(market,'appts-added')}" placeholder="0" oninput="updateTotals()"></div>
+          <div class="field-row"><label>Appointments Needed</label><input type="number" id="${mf(market,'appts-needed')}" placeholder="0" oninput="updateTotals()"></div>
+        </div>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'staffing-rundown')}')"><input type="checkbox" id="${mf(market,'staffing-rundown')}"><div class="check-box"></div><span class="check-label">Staffing Rundown Checked</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'personnel-tracker')}')"><input type="checkbox" id="${mf(market,'personnel-tracker')}"><div class="check-box"></div><span class="check-label">Personnel Tracker Checked</span></label>
+        </div>
+
+        <p class="section-label">Recruiting</p>
+        <div class="grid-2">
+          <div class="field-row"><label>Recruiting Calls Made</label><input type="number" id="${mf(market,'rec-calls')}" placeholder="0"></div>
+          <div class="field-row"><label>Interviews Ran</label><input type="number" id="${mf(market,'interviews-ran')}" placeholder="0"></div>
+          <div class="field-row"><label>Candidates Hired</label><input type="number" id="${mf(market,'candidates-hired')}" placeholder="0"></div>
+        </div>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'rec-cal-match')}')"><input type="checkbox" id="${mf(market,'rec-cal-match')}"><div class="check-box"></div><span class="check-label">Recruiting Calendar Match</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'rec-cal-updated')}')"><input type="checkbox" id="${mf(market,'rec-cal-updated')}"><div class="check-box"></div><span class="check-label">Cal. Status Updated</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'indeed-cleaned')}')"><input type="checkbox" id="${mf(market,'indeed-cleaned')}"><div class="check-box"></div><span class="check-label">Indeed Cleaned Out</span></label>
+        </div>
+
+        <p class="section-label">Meetings</p>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'team-meeting')}')"><input type="checkbox" id="${mf(market,'team-meeting')}"><div class="check-box"></div><span class="check-label">Team Meeting Held</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'closer-meeting')}')"><input type="checkbox" id="${mf(market,'closer-meeting')}"><div class="check-box"></div><span class="check-label">Closer Meeting Held</span></label>
+        </div>
+        <div class="grid-2">
+          <div class="field-row"><label>Team Meeting Topic</label><input type="text" id="${mf(market,'team-topic')}" placeholder="Topic covered..."></div>
+          <div class="field-row"><label>Closer Meeting Topic</label><input type="text" id="${mf(market,'closer-topic')}" placeholder="Topic covered..."></div>
+        </div>
+
+        <p class="section-label">Field Work</p>
+        <div class="grid-3">
+          <div class="field-row"><label>Reps in Field</label><input type="number" id="${mf(market,'reps-field')}" placeholder="0"></div>
+          <div class="field-row"><label>Closers in Field</label><input type="number" id="${mf(market,'closers-field')}" placeholder="0"></div>
+          <div class="field-row"><label>Doors Knocked</label><input type="number" id="${mf(market,'doors')}" placeholder="0"></div>
+          <div class="field-row"><label>Conversations</label><input type="number" id="${mf(market,'convos')}" placeholder="0"></div>
+          <div class="field-row"><label>Appointments Set</label><input type="number" id="${mf(market,'appts-set')}" placeholder="0"></div>
+          <div class="field-row"><label>Shadowed</label><input type="number" id="${mf(market,'shadowed')}" placeholder="0"></div>
+          <div class="field-row"><label>SIROs Listened</label><input type="number" id="${mf(market,'siros-listened')}" placeholder="0"></div>
+        </div>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'appts-assigned')}')"><input type="checkbox" id="${mf(market,'appts-assigned')}"><div class="check-box"></div><span class="check-label">Appointments Assigned</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'appts-confirmed')}')"><input type="checkbox" id="${mf(market,'appts-confirmed')}"><div class="check-box"></div><span class="check-label">Appointments Confirmed</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'appts-resulted')}')"><input type="checkbox" id="${mf(market,'appts-resulted')}"><div class="check-box"></div><span class="check-label">Appointments Resulted</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'siro-flag')}')"><input type="checkbox" id="${mf(market,'siro-flag')}"><div class="check-box"></div><span class="check-label">SIRO Analytics Flag</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'check-in-1')}')"><input type="checkbox" id="${mf(market,'check-in-1')}"><div class="check-box"></div><span class="check-label">1st Check In</span></label>
+          <label class="check-item" onclick="toggleCheck(this,'${mf(market,'check-in-2')}')"><input type="checkbox" id="${mf(market,'check-in-2')}"><div class="check-box"></div><span class="check-label">2nd Check In</span></label>
+        </div>
+        <div class="field-row"><label>SIRO Analytics Notes</label><textarea id="${mf(market,'siro-notes')}" placeholder="Coaching insight..."></textarea></div>
+        <div class="field-row"><label>Market Notes</label><textarea id="${mf(market,'notes')}" placeholder="Any additional notes for this market..."></textarea></div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// Helper: generate unique field ID for a market+field combo
+function mf(market, field) {
+  return `mkt_${market.replace(/\s+/g,'_')}_${field}`;
+}
+
+// ============================================================
+// TOTALS
+// ============================================================
+function updateTotals() {
+  let revenue = 0, revNeeded = 0, ran = 0, notRan = 0, added = 0, needed = 0;
+  selectedMarkets.forEach(market => {
+    revenue += parseFloat(document.getElementById(mf(market,'current-revenue'))?.value || 0);
+    revNeeded += parseFloat(document.getElementById(mf(market,'revenue-needed'))?.value || 0);
+    ran += parseInt(document.getElementById(mf(market,'appts-ran'))?.value || 0);
+    notRan += parseInt(document.getElementById(mf(market,'appts-not-ran'))?.value || 0);
+    added += parseInt(document.getElementById(mf(market,'appts-added'))?.value || 0);
+    needed += parseInt(document.getElementById(mf(market,'appts-needed'))?.value || 0);
+  });
+  document.getElementById('tot-revenue').textContent = revenue.toLocaleString();
+  document.getElementById('tot-rev-needed').textContent = revNeeded.toLocaleString();
+  document.getElementById('tot-appts-ran').textContent = ran;
+  document.getElementById('tot-appts-not-ran').textContent = notRan;
+  document.getElementById('tot-appts-added').textContent = added;
+  document.getElementById('tot-appts-needed').textContent = needed;
+  // Mirror to KPI fields
+  document.getElementById('kpi-revenue').value = revenue || '';
+  document.getElementById('kpi-rev-needed').value = revNeeded || '';
+  document.getElementById('kpi-appts-ran').value = ran || '';
+  document.getElementById('kpi-appts-not-ran').value = notRan || '';
+  document.getElementById('kpi-appts-added').value = added || '';
+  document.getElementById('kpi-appts-needed').value = needed || '';
+}
+
+// ============================================================
+// CHECKBOX TOGGLE
+// ============================================================
+function toggleCheck(label, id) {
+  const cb = document.getElementById(id);
+  if (!cb) return;
+  cb.checked = !cb.checked;
+  label.classList.toggle('checked', cb.checked);
+}
+
+// ============================================================
+// STEP NAVIGATION
+// ============================================================
+function goToStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.step-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById(`step-${n}`).classList.add('active');
+  document.getElementById(`pill-${n}`).classList.add('active');
+  for (let i = 0; i < n; i++) document.getElementById(`pill-${i}`).classList.add('done');
+  currentStep = n;
+  if (n === 4) buildReview();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ============================================================
+// REVIEW SUMMARY
+// ============================================================
+function buildReview() {
+  const rm = document.getElementById('sel-regional-manager');
+  const rmName = rm.options[rm.selectedIndex]?.text || '—';
+  const date = document.getElementById('sel-date').value;
+  const markets = selectedMarkets.join(', ');
+  document.getElementById('review-summary').innerHTML = `
+    <p><strong>Regional Manager:</strong> ${rmName}</p>
+    <p><strong>Date:</strong> ${date}</p>
+    <p><strong>Markets:</strong> ${markets}</p>
+    <p><strong>Current Revenue:</strong> $${document.getElementById('tot-revenue').textContent}</p>
+    <p><strong>Appointments Ran:</strong> ${document.getElementById('tot-appts-ran').textContent}</p>
+    <p style="margin-top:12px;color:#888;font-size:13px;">Review your entries above. Click Submit to log this report.</p>
+  `;
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+async function submitForm() {
+  const btn = document.getElementById('submit-btn');
+  document.getElementById('submit-text').style.display = 'none';
+  document.getElementById('submit-spinner').style.display = 'inline';
+  btn.disabled = true;
+
+  try {
+    const customFields = buildCustomFields();
+    const rmEl = document.getElementById('sel-regional-manager');
+    const rmName = rmEl.options[rmEl.selectedIndex]?.text || 'Unknown';
+    const date = document.getElementById('sel-date').value;
+    const markets = selectedMarkets.join(', ');
+    const taskName = `Daily Report — ${rmName} — ${date} — ${markets}`;
+
+    // Submit to ClickUp
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/task`, {
+      method: 'POST',
+      headers: { 'Authorization': CLICKUP_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: taskName, custom_fields: customFields })
+    });
+
+    if (!res.ok) throw new Error(`ClickUp error: ${res.status}`);
+
+    // Send email via Google Apps Script
+    if (GAS_URL && GAS_URL !== 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      const emailData = buildEmailData(rmName, date, markets);
+      await fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(emailData)
+      });
+    }
+
+    // Show success
+    document.getElementById('step-4').style.display = 'none';
+    document.getElementById('step-indicator').style.display = 'none';
+    document.getElementById('success-panel').style.display = 'block';
+
+  } catch (err) {
+    alert('Submission failed: ' + err.message);
+    document.getElementById('submit-text').style.display = 'inline';
+    document.getElementById('submit-spinner').style.display = 'none';
+    btn.disabled = false;
+  }
+}
+
+// ============================================================
+// BUILD CUSTOM FIELDS PAYLOAD
+// ============================================================
+function buildCustomFields() {
+  const fields = [];
+  const add = (id, value) => { if (id && value !== null && value !== undefined && value !== '') fields.push({id, value}); };
+  const addBool = (id, elId) => { const el = document.getElementById(elId); if (el) fields.push({id, value: el.checked ? 'true' : 'false'}); };
+  const addNum = (id, elId) => { const el = document.getElementById(elId); if (el && el.value !== '') add(id, el.value); };
+  const addText = (id, elId) => { const el = document.getElementById(elId); if (el && el.value.trim()) add(id, el.value.trim()); };
+
+  // Regional Manager
+  const rmVal = document.getElementById('sel-regional-manager').value;
+  if (rmVal) add(FIELD_IDS.regionalManager, rmVal);
+
+  // Date
+  const dateVal = document.getElementById('sel-date').value;
+  if (dateVal) add(FIELD_IDS.todaysDate, dateVal);
+
+  // Markets covered text
+  add(FIELD_IDS.vpFlags, selectedMarkets.join(', '));
+
+  // Regional totals (from auto-sum)
+  addNum(FIELD_IDS.currentRevenue, 'kpi-revenue');
+  addNum(FIELD_IDS.revenueNeeded, 'kpi-rev-needed');
+  addNum(FIELD_IDS.apptsRan, 'kpi-appts-ran');
+  addNum(FIELD_IDS.apptsNotRan, 'kpi-appts-not-ran');
+  addNum(FIELD_IDS.apptsAdded, 'kpi-appts-added');
+  addNum(FIELD_IDS.apptsNeeded, 'kpi-appts-needed');
+
+  // Personal KPIs
+  addBool(FIELD_IDS.emailsChecked, 'emails-checked');
+  addBool(FIELD_IDS.schedulePosted, 'schedule-posted');
+  addBool(FIELD_IDS.officeClean, 'office-clean');
+  addBool(FIELD_IDS.officeStocked, 'office-stocked');
+
+  // Follow Up
+  addBool(FIELD_IDS.missingMoneyFlag, 'missing-money-flag');
+  addText(FIELD_IDS.missingMoneyNotes, 'mm-notes');
+  addBool(FIELD_IDS.systemsPurgeGoogle, 'purge-google');
+  addBool(FIELD_IDS.systemsPurgeBamboo, 'purge-bamboo');
+  addBool(FIELD_IDS.systemsPurgeEnzy, 'purge-enzy');
+  addBool(FIELD_IDS.systemsPurgeSiro, 'purge-siro');
+  addText(FIELD_IDS.rescheduleHomeowner, 'rs-homeowner');
+  addText(FIELD_IDS.rescheduleStatus, 'rs-status');
+  addText(FIELD_IDS.rescheduleContact, 'rs-contact');
+  addText(FIELD_IDS.rescheduleNotes, 'rs-notes');
+  addText(FIELD_IDS.rescheduleFollowUp, 'rs-follow-up-date');
+  addText(FIELD_IDS.cancellationHomeowner, 'can-homeowner');
+  addText(FIELD_IDS.cancellationReason, 'can-reason');
+  addText(FIELD_IDS.cancellationContact, 'can-contact');
+  addText(FIELD_IDS.cancellationNotes, 'can-notes');
+  addText(FIELD_IDS.cancellationFollowUp, 'can-follow-up-date');
+  addText(FIELD_IDS.eodNotes, 'eod-notes');
+
+  // Per-market fields using live field IDs from MARKET_FIELDS
+  selectedMarkets.forEach(market => {
+    const mf_ids = MARKET_FIELDS[market] || {};
+    const g = (suffix) => mf_ids[suffix];
+    const fid = (field) => mf(market, field);
+
+    const addMF = (suffix, inputId, type='text') => {
+      const id = g(suffix);
+      if (!id) return;
+      const el = document.getElementById(inputId);
+      if (!el) return;
+      if (type === 'bool') fields.push({id, value: el.checked ? 'true' : 'false'});
+      else if (type === 'num') { if (el.value !== '') add(id, el.value); }
+      else { if (el.value.trim()) add(id, el.value.trim()); }
+    };
+
+    addMF('Current Revenue', fid('current-revenue'), 'num');
+    addMF('Revenue Needed', fid('revenue-needed'), 'num');
+    addMF('Appointments Ran', fid('appts-ran'), 'num');
+    addMF('Appointments Not Ran', fid('appts-not-ran'), 'num');
+    addMF('Appointments Added', fid('appts-added'), 'num');
+    addMF('Appointments Needed', fid('appts-needed'), 'num');
+    addMF('Doors Knocked', fid('doors'), 'num');
+    addMF('Conversations', fid('convos'), 'num');
+    addMF('Appts Set', fid('appts-set'), 'num');
+    addMF('Shadowed', fid('shadowed'), 'num');
+    addMF('Recruiting Calls', fid('rec-calls'), 'num');
+    addMF('Interviews Ran', fid('interviews-ran'), 'num');
+    addMF('Candidates Hired', fid('candidates-hired'), 'num');
+    addMF('Reps in Field', fid('reps-field'), 'num');
+    addMF('Closers in Field', fid('closers-field'), 'num');
+    addMF('SIROs Listened', fid('siros-listened'), 'num');
+    addMF('Personnel Tracker Checked', fid('personnel-tracker'), 'bool');
+    addMF('Recruiting Calendar Match', fid('rec-cal-match'), 'bool');
+    addMF('Recruiting Calendar Status Updated', fid('rec-cal-updated'), 'bool');
+    addMF('Indeed Cleaned Out', fid('indeed-cleaned'), 'bool');
+    addMF('Team Meeting Held', fid('team-meeting'), 'bool');
+    addMF('Closer Meeting Held', fid('closer-meeting'), 'bool');
+    addMF('Appointments Assigned', fid('appts-assigned'), 'bool');
+    addMF('Appointments Confirmed', fid('appts-confirmed'), 'bool');
+    addMF('Appointments Resulted', fid('appts-resulted'), 'bool');
+    addMF('SIRO Analytics Flag', fid('siro-flag'), 'bool');
+    addMF('1st Check In', fid('check-in-1'), 'bool');
+    addMF('2nd Check In', fid('check-in-2'), 'bool');
+    addMF('Team Meeting Topic', fid('team-topic'), 'text');
+    addMF('Closer Meeting Topic', fid('closer-topic'), 'text');
+    addMF('SIRO Analytics Notes', fid('siro-notes'), 'text');
+    addMF('Notes', fid('notes'), 'text');
+  });
+
+  return fields;
+}
+
+// ============================================================
+// BUILD EMAIL DATA
+// ============================================================
+function buildEmailData(rmName, date, markets) {
+  const lines = [`BRIGHTSIDE WINDOWS — DAILY SUBMISSION`, `Regional Manager: ${rmName}`, `Date: ${date}`, `Markets: ${markets}`, ``, `REGIONAL TOTALS`, `Current Revenue: $${document.getElementById('tot-revenue').textContent}`, `Revenue Needed: $${document.getElementById('tot-rev-needed').textContent}`, `Appointments Ran: ${document.getElementById('tot-appts-ran').textContent}`, `Appointments Not Ran: ${document.getElementById('tot-appts-not-ran').textContent}`, `Appointments Added: ${document.getElementById('tot-appts-added').textContent}`, `Appointments Needed: ${document.getElementById('tot-appts-needed').textContent}`, ``];
+
+  selectedMarkets.forEach(market => {
+    lines.push(`--- ${market.toUpperCase()} ---`);
+    const nums = ['current-revenue','revenue-needed','appts-ran','appts-not-ran','appts-added','appts-needed','doors','convos','appts-set','shadowed','rec-calls','interviews-ran','candidates-hired','reps-field','closers-field'];
+    const labels = ['Current Revenue','Revenue Needed','Appts Ran','Appts Not Ran','Appts Added','Appts Needed','Doors Knocked','Conversations','Appts Set','Shadowed','Recruiting Calls','Interviews Ran','Candidates Hired','Reps in Field','Closers in Field'];
+    nums.forEach((f,i) => {
+      const el = document.getElementById(mf(market,f));
+      if (el && el.value) lines.push(`${labels[i]}: ${el.value}`);
+    });
+    const noteEl = document.getElementById(mf(market,'notes'));
+    if (noteEl && noteEl.value) lines.push(`Notes: ${noteEl.value}`);
+    lines.push('');
+  });
+
+  const eod = document.getElementById('eod-notes').value;
+  if (eod) { lines.push(`EOD NOTES`); lines.push(eod); }
+
+  return {
+    subject: `[Brightside] Daily Submission — ${rmName} — ${date} — ${markets}`,
+    body: lines.join('\n'),
+    to: 'ops@brightsidewindows.com'
+  };
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetForm() {
+  location.reload();
+}
+
+// ============================================================
+// PER-MARKET FIELD IDs — loaded dynamically from ClickUp
+// ============================================================
+async function loadMarketFields() {
+  try {
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
+      headers: { 'Authorization': CLICKUP_API_KEY }
+    });
+    const data = await res.json();
+    const allFields = data.fields || [];
+
+    const MARKETS = ["Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR","Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT","Boise ID","Salt Lake City UT","Denver CO","Reno NV","Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN","Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN"];
+    const SUFFIXES = ["Doors Knocked","Conversations","Appts Set","Shadowed","Notes","Recruiting Calls","Recruiting Scheduled","Recruiting Ran","Recruiting Offered","Personnel Tracker Checked","Recruiting Calendar Match","Recruiting Calendar Status Updated","Indeed Cleaned Out","Interviews Ran","Candidates Hired","Team Meeting Held","Team Meeting Topic","Closer Meeting Held","Closer Meeting Topic","Reps in Field","Closers in Field","Appointments Assigned","Appointments Confirmed","Appointments Resulted","SIRO Analytics Flag","SIRO Analytics Notes","1st Check In","2nd Check In"];
+
+    const fieldMap = {};
+    allFields.forEach(f => { fieldMap[f.name] = f.id; });
+
+    MARKETS.forEach(market => {
+      MARKET_FIELDS[market] = {};
+      SUFFIXES.forEach(suffix => {
+        const id = fieldMap[`${market} - ${suffix}`];
+        if (id) MARKET_FIELDS[market][suffix] = id;
+      });
+    });
+  } catch(e) {
+    console.error('Failed to load market fields:', e);
+  }
+}
+
+// Load fields on init
+loadMarketFields();
+</script>
+
+</body>
+</html>

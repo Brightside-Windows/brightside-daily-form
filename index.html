@@ -519,96 +519,16 @@
     <div class="card-body">
 
       <p class="section-label">Missing Money</p>
-      <div class="check-group" style="grid-template-columns:1fr;">
-        <label class="check-item" onclick="toggleCheck(this,'missing-money-flag')">
-          <input type="checkbox" id="missing-money-flag">
-          <div class="check-box"></div>
-          <span class="check-label">Missing Money Flag</span>
-        </label>
-      </div>
-      <div class="grid-2">
-        <div class="field-row">
-          <label>Homeowner</label>
-          <input type="text" id="mm-homeowner" placeholder="Homeowner name">
-        </div>
-        <div class="field-row">
-          <label>Contact (who made contact)</label>
-          <input type="text" id="mm-contact" placeholder="Rep name">
-        </div>
-        <div class="field-row">
-          <label>Status</label>
-          <input type="text" id="mm-status" placeholder="e.g. Pending, Resolved">
-        </div>
-        <div class="field-row">
-          <label>Amount</label>
-          <div class="currency-wrap"><input type="number" id="mm-amount" placeholder="0.00"></div>
-        </div>
-        <div class="field-row">
-          <label>Pay Terms</label>
-          <select id="mm-pay-terms">
-            <option value="">— Select —</option>
-            <option value="Cash">Cash</option>
-            <option value="AquaFinance">AquaFinance</option>
-            <option value="Momnt">Momnt</option>
-          </select>
-        </div>
-        <div class="field-row">
-          <label>Follow Up Date</label>
-          <input type="date" id="mm-follow-up-date">
-        </div>
-      </div>
-      <div class="field-row">
-        <label>Notes</label>
-        <textarea id="mm-notes" placeholder="Additional notes..."></textarea>
-      </div>
+      <div id="mm-rows"></div>
+      <button type="button" class="btn btn-outline" style="margin-bottom:14px;font-size:13px;padding:8px 16px;" onclick="addRow('mm')">+ Add Entry</button>
 
       <p class="section-label">Need to Reschedule / Ran & Pending</p>
-      <div class="grid-2">
-        <div class="field-row">
-          <label>Homeowner</label>
-          <input type="text" id="rs-homeowner" placeholder="Homeowner name">
-        </div>
-        <div class="field-row">
-          <label>Status</label>
-          <input type="text" id="rs-status" placeholder="e.g. Reschedule, Pending, Ran">
-        </div>
-        <div class="field-row">
-          <label>Contact</label>
-          <input type="text" id="rs-contact" placeholder="Rep name">
-        </div>
-        <div class="field-row">
-          <label>Follow Up Date</label>
-          <input type="date" id="rs-follow-up-date">
-        </div>
-      </div>
-      <div class="field-row">
-        <label>Notes</label>
-        <textarea id="rs-notes" placeholder="Additional notes..."></textarea>
-      </div>
+      <div id="rs-rows"></div>
+      <button type="button" class="btn btn-outline" style="margin-bottom:14px;font-size:13px;padding:8px 16px;" onclick="addRow('rs')">+ Add Entry</button>
 
       <p class="section-label">Cancellations</p>
-      <div class="grid-2">
-        <div class="field-row">
-          <label>Homeowner</label>
-          <input type="text" id="can-homeowner" placeholder="Homeowner name">
-        </div>
-        <div class="field-row">
-          <label>Reason</label>
-          <input type="text" id="can-reason" placeholder="Reason for cancellation">
-        </div>
-        <div class="field-row">
-          <label>Contact</label>
-          <input type="text" id="can-contact" placeholder="Rep name">
-        </div>
-        <div class="field-row">
-          <label>Follow Up Date</label>
-          <input type="date" id="can-follow-up-date">
-        </div>
-      </div>
-      <div class="field-row">
-        <label>Notes</label>
-        <textarea id="can-notes" placeholder="Additional notes..."></textarea>
-      </div>
+      <div id="can-rows"></div>
+      <button type="button" class="btn btn-outline" style="margin-bottom:14px;font-size:13px;padding:8px 16px;" onclick="addRow('can')">+ Add Entry</button>
 
       <p class="section-label">Systems Purge</p>
       <div class="check-group">
@@ -679,6 +599,100 @@
 </div><!-- /form-content -->
 
 <script>
+
+// ============================================================
+// DYNAMIC FOLLOW-UP ROWS
+// ============================================================
+const rowCounts = {mm: 0, rs: 0, can: 0};
+
+const rowTemplates = {
+  mm: (i) => `
+    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="mm-row-${i}">
+      <div class="card-body" style="padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+          <button type="button" onclick="removeRow('mm',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
+        </div>
+        <div class="grid-2">
+          <div class="field-row"><label>Homeowner</label><input type="text" id="mm-${i}-homeowner" placeholder="Homeowner name"></div>
+          <div class="field-row"><label>Contact</label><input type="text" id="mm-${i}-contact" placeholder="Rep name"></div>
+          <div class="field-row"><label>Status</label><input type="text" id="mm-${i}-status" placeholder="e.g. Pending, Resolved"></div>
+          <div class="field-row"><label>Amount</label><div class="currency-wrap"><input type="number" id="mm-${i}-amount" placeholder="0.00"></div></div>
+          <div class="field-row"><label>Pay Terms</label><select id="mm-${i}-pay-terms"><option value="">— Select —</option><option>Cash</option><option>AquaFinance</option><option>Momnt</option></select></div>
+          <div class="field-row"><label>Follow Up Date</label><input type="date" id="mm-${i}-follow-up-date"></div>
+        </div>
+        <div class="field-row"><label>Notes</label><textarea id="mm-${i}-notes" placeholder="Additional notes..."></textarea></div>
+      </div>
+    </div>`,
+  rs: (i) => `
+    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="rs-row-${i}">
+      <div class="card-body" style="padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+          <button type="button" onclick="removeRow('rs',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
+        </div>
+        <div class="grid-2">
+          <div class="field-row"><label>Homeowner</label><input type="text" id="rs-${i}-homeowner" placeholder="Homeowner name"></div>
+          <div class="field-row"><label>Status</label><input type="text" id="rs-${i}-status" placeholder="e.g. Reschedule, Pending, Ran"></div>
+          <div class="field-row"><label>Contact</label><input type="text" id="rs-${i}-contact" placeholder="Rep name"></div>
+          <div class="field-row"><label>Follow Up Date</label><input type="date" id="rs-${i}-follow-up-date"></div>
+        </div>
+        <div class="field-row"><label>Notes</label><textarea id="rs-${i}-notes" placeholder="Additional notes..."></textarea></div>
+      </div>
+    </div>`,
+  can: (i) => `
+    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="can-row-${i}">
+      <div class="card-body" style="padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+          <button type="button" onclick="removeRow('can',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
+        </div>
+        <div class="grid-2">
+          <div class="field-row"><label>Homeowner</label><input type="text" id="can-${i}-homeowner" placeholder="Homeowner name"></div>
+          <div class="field-row"><label>Reason</label><input type="text" id="can-${i}-reason" placeholder="Reason for cancellation"></div>
+          <div class="field-row"><label>Contact</label><input type="text" id="can-${i}-contact" placeholder="Rep name"></div>
+          <div class="field-row"><label>Follow Up Date</label><input type="date" id="can-${i}-follow-up-date"></div>
+        </div>
+        <div class="field-row"><label>Notes</label><textarea id="can-${i}-notes" placeholder="Additional notes..."></textarea></div>
+      </div>
+    </div>`
+};
+
+function addRow(type) {
+  const i = rowCounts[type];
+  const container = document.getElementById(`${type}-rows`);
+  const div = document.createElement('div');
+  div.innerHTML = rowTemplates[type](i);
+  container.appendChild(div.firstElementChild);
+  rowCounts[type]++;
+}
+
+function removeRow(type, i) {
+  const el = document.getElementById(`${type}-row-${i}`);
+  if (el) el.remove();
+}
+
+// Collect all dynamic rows into a formatted string for ClickUp
+function collectRows(type, fields) {
+  const lines = [];
+  for (let i = 0; i < rowCounts[type]; i++) {
+    const row = [];
+    fields.forEach(f => {
+      const el = document.getElementById(`${type}-${i}-${f.id}`);
+      if (el && el.value) row.push(`${f.label}: ${el.value}`);
+    });
+    if (row.length) lines.push(`[Entry ${i+1}] ${row.join(' | ')}`);
+  }
+  return lines.join('\n');
+}
+
+// Add one row by default for each section on step 3 load
+function initFollowUpRows() {
+  if (rowCounts.mm === 0) addRow('mm');
+  if (rowCounts.rs === 0) addRow('rs');
+  if (rowCounts.can === 0) addRow('can');
+}
+
 // ============================================================
 // PASSWORD GATE
 // ============================================================
@@ -982,6 +996,7 @@ function goToStep(n) {
   document.getElementById(`pill-${n}`).classList.add('active');
   for (let i = 0; i < n; i++) document.getElementById(`pill-${i}`).classList.add('done');
   currentStep = n;
+  if (n === 3) initFollowUpRows();
   if (n === 4) buildReview();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -1090,8 +1105,29 @@ function buildCustomFields() {
   addBool(FIELD_IDS.officeStocked, 'office-stocked');
 
   // Follow Up
-  addBool(FIELD_IDS.missingMoneyFlag, 'missing-money-flag');
-  addText(FIELD_IDS.missingMoneyNotes, 'mm-notes');
+  // Missing Money rows -> bundled into notes field
+  const mmData = collectRows('mm', [
+    {id:'homeowner',label:'Homeowner'},{id:'contact',label:'Contact'},
+    {id:'status',label:'Status'},{id:'amount',label:'Amount'},
+    {id:'pay-terms',label:'Pay Terms'},{id:'follow-up-date',label:'Follow Up'},
+    {id:'notes',label:'Notes'}
+  ]);
+  if (mmData) { add(FIELD_IDS.missingMoneyNotes, mmData); add(FIELD_IDS.missingMoneyFlag, 'true'); }
+
+  // Reschedule rows -> bundled into reschedule notes field
+  const rsData = collectRows('rs', [
+    {id:'homeowner',label:'Homeowner'},{id:'status',label:'Status'},
+    {id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}
+  ]);
+  if (rsData) add(FIELD_IDS.rescheduleNotes, rsData);
+
+  // Cancellation rows -> bundled into cancellation notes field
+  const canData = collectRows('can', [
+    {id:'homeowner',label:'Homeowner'},{id:'reason',label:'Reason'},
+    {id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}
+  ]);
+  if (canData) add(FIELD_IDS.cancellationNotes, canData);
+
   addBool(FIELD_IDS.systemsPurgeGoogle, 'purge-google');
   addBool(FIELD_IDS.systemsPurgeBamboo, 'purge-bamboo');
   addBool(FIELD_IDS.systemsPurgeEnzy, 'purge-enzy');
@@ -1179,6 +1215,16 @@ function buildEmailData(rmName, date, markets) {
     if (noteEl && noteEl.value) lines.push(`Notes: ${noteEl.value}`);
     lines.push('');
   });
+
+  // Add follow-up rows to email
+  const mmData = collectRows('mm', [{id:'homeowner',label:'Homeowner'},{id:'contact',label:'Contact'},{id:'status',label:'Status'},{id:'amount',label:'Amount'},{id:'pay-terms',label:'Pay Terms'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
+  if (mmData) { lines.push('MISSING MONEY'); lines.push(mmData); lines.push(''); }
+
+  const rsData = collectRows('rs', [{id:'homeowner',label:'Homeowner'},{id:'status',label:'Status'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
+  if (rsData) { lines.push('RESCHEDULE / PENDING'); lines.push(rsData); lines.push(''); }
+
+  const canData = collectRows('can', [{id:'homeowner',label:'Homeowner'},{id:'reason',label:'Reason'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
+  if (canData) { lines.push('CANCELLATIONS'); lines.push(canData); lines.push(''); }
 
   const eod = document.getElementById('eod-notes').value;
   if (eod) { lines.push(`EOD NOTES`); lines.push(eod); }

@@ -825,8 +825,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load Regional Manager options from ClickUp
   await loadRegionalManagers();
 
-  // Build market grid dynamically from ClickUp
-  await loadMarkets();
+  // Build market grid from static list
+  const grid = document.getElementById('market-grid');
+  const MARKETS_LIST = [
+    "Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR",
+    "Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT",
+    "Boise ID","Salt Lake City UT","Denver CO","Reno NV",
+    "Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN",
+    "Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX",
+    "Nashville TN","San Antonio TX"
+  ];
+  MARKETS_LIST.forEach(name => {
+    const div = document.createElement('div');
+    div.className = 'market-select-item';
+    div.textContent = name;
+    div.dataset.market = name;
+    div.onclick = () => toggleMarket(div, name);
+    grid.appendChild(div);
+  });
 });
 
 // ============================================================

@@ -794,6 +794,7 @@ const REGIONS = [
     { name: "Austin TX", labelId: "e424b831-df31-4214-9c77-4e531ca1e4f0" },
     { name: "Oklahoma City TX", labelId: "c2c38e78-7dfe-48a1-8c74-0df4dbc4dd16" },
     { name: "Dallas TX", labelId: "41bfe1a2-d3b6-455b-88e3-0ba3e3d69ca0" },
+    { name: "San Antonio TX", labelId: "san-antonio-tx-label-id" },
   ]},
   { region: "South East Region", regionId: "f1d334d2-13fc-4688-9df4-d1bdfc4572d1", markets: [
     { name: "Nashville TN", labelId: "5817047f-8027-4ae2-8c88-3d9734df24ab" },
@@ -824,18 +825,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load Regional Manager options from ClickUp
   await loadRegionalManagers();
 
-  // Build market grid
-  const grid = document.getElementById('market-grid');
-  REGIONS.forEach(r => {
-    r.markets.forEach(m => {
-      const div = document.createElement('div');
-      div.className = 'market-select-item';
-      div.textContent = m.name;
-      div.dataset.market = m.name;
-      div.onclick = () => toggleMarket(div, m.name);
-      grid.appendChild(div);
-    });
-  });
+  // Build market grid dynamically from ClickUp
+  await loadMarkets();
 });
 
 // ============================================================
@@ -1306,7 +1297,7 @@ async function loadMarketFields() {
     const data = await res.json();
     const allFields = data.fields || [];
 
-    const MARKETS = ["Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR","Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT","Boise ID","Salt Lake City UT","Denver CO","Reno NV","Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN","Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN"];
+    const MARKETS = ["Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR","Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT","Boise ID","Salt Lake City UT","Denver CO","Reno NV","Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN","Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN","San Antonio TX"];
     const SUFFIXES = ["Doors Knocked","Conversations","Appts Set","Shadowed","Notes","Recruiting Calls","Recruiting Scheduled","Recruiting Ran","Recruiting Offered","Personnel Tracker Checked","Recruiting Calendar Match","Recruiting Calendar Status Updated","Indeed Cleaned Out","Interviews Ran","Candidates Hired","Team Meeting Held","Team Meeting Topic","Closer Meeting Held","Closer Meeting Topic","Reps in Field","Closers in Field","Appointments Assigned","Appointments Confirmed","Appointments Resulted","SIRO Analytics Flag","SIRO Analytics Notes","1st Check In","2nd Check In"];
 
     const fieldMap = {};
@@ -1326,6 +1317,58 @@ async function loadMarketFields() {
 
 // Load fields on init
 loadMarketFields();
+
+// ============================================================
+// LOAD MARKETS FROM CLICKUP
+// ============================================================
+async function loadMarkets() {
+  const MARKETS_FIELD_ID = '0f6e3d30-61ea-4e70-8e11-c19228659932';
+  const grid = document.getElementById('market-grid');
+
+  try {
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
+      headers: { 'Authorization': CLICKUP_API_KEY }
+    });
+    const data = await res.json();
+    const mktField = data.fields.find(f => f.id === MARKETS_FIELD_ID);
+
+    if (!mktField || !mktField.type_config || !mktField.type_config.options) {
+      throw new Error('Markets field not found');
+    }
+
+    grid.innerHTML = '';
+    mktField.type_config.options
+      .sort((a,b) => a.orderindex - b.orderindex)
+      .forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'market-select-item';
+        div.textContent = opt.name;
+        div.dataset.market = opt.name;
+        div.onclick = () => toggleMarket(div, opt.name);
+        grid.appendChild(div);
+      });
+    console.log('Markets loaded from ClickUp:', mktField.type_config.options.map(o=>o.name));
+  } catch(e) {
+    console.error('Failed to load markets — using fallback:', e.message);
+    // Fallback to static list
+    const FALLBACK_MARKETS = [
+      "Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR",
+      "Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT",
+      "Boise ID","Salt Lake City UT","Denver CO","Reno NV",
+      "Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN",
+      "Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN","San Antonio TX"
+    ];
+    grid.innerHTML = '';
+    FALLBACK_MARKETS.forEach(name => {
+      const div = document.createElement('div');
+      div.className = 'market-select-item';
+      div.textContent = name;
+      div.dataset.market = name;
+      div.onclick = () => toggleMarket(div, name);
+      grid.appendChild(div);
+    });
+  }
+}
 
 // ============================================================
 // LOAD REGIONAL MANAGERS FROM CLICKUP

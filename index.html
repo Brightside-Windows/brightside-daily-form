@@ -416,12 +416,12 @@
         <label>Regional Manager</label>
         <select id="sel-regional-manager">
           <option value="">— Select —</option>
-          <option value="27582830-f518-4870-95c2-85fe0233eec9">Edgar Reyes</option>
-          <option value="761503c4-46fc-447a-9dcd-0d9022ee0b86">James Amis</option>
-          <option value="dfda8184-e9ce-45d4-a65d-aca7ce4821b8">Justin Wimberly</option>
-          <option value="7265baf7-c189-4132-a289-9a37aaa09777">Garrett Daly</option>
-          <option value="9313f2bc-0946-435c-b9f4-ae9eeac5fa69">Anthony Sylvester</option>
-          <option value="fafc50a3-eb8f-42e5-8024-78168b1ad84c">Undecided</option>
+          <option value="0">Edgar Reyes</option>
+          <option value="1">James Amis</option>
+          <option value="2">Justin Wimberly</option>
+          <option value="3">Garrett Daly</option>
+          <option value="5">Anthony Sylvester</option>
+          <option value="4">Undecided</option>
         </select>
       </div>
       <div class="field-row">
@@ -1081,11 +1081,11 @@ function buildCustomFields() {
 
   // Regional Manager
   const rmVal = document.getElementById('sel-regional-manager').value;
-  if (rmVal) add(FIELD_IDS.regionalManager, rmVal);
+  if (rmVal) fields.push({id: FIELD_IDS.regionalManager, value: parseInt(rmVal)});
 
   // Date
   const dateVal = document.getElementById('sel-date').value;
-  if (dateVal) add(FIELD_IDS.todaysDate, dateVal);
+  if (dateVal) fields.push({id: FIELD_IDS.todaysDate, value: String(new Date(dateVal).getTime())});
 
   // Markets covered text
   add(FIELD_IDS.vpFlags, selectedMarkets.join(', '));

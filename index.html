@@ -19,7 +19,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Barlow', sans-serif; background: #f0f0f0; color: var(--black); min-height: 100vh; }
 
-  /* HEADER */
   #header {
     background: var(--black);
     color: white;
@@ -44,11 +43,7 @@
     text-transform: uppercase;
   }
   #header-top h1 span { color: var(--red); }
-  #totals-bar {
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-  }
+  #totals-bar { display: flex; gap: 0; overflow-x: auto; }
   .total-item {
     flex: 1;
     min-width: 100px;
@@ -75,10 +70,8 @@
   }
   .total-value.currency::before { content: '$'; font-size: 14px; color: var(--muted); }
 
-  /* MAIN */
   #main { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
 
-  /* STEP INDICATOR */
   #step-indicator {
     display: flex;
     align-items: center;
@@ -108,7 +101,6 @@
   .step-pill.active { background: var(--red); color: white; }
   .step-pill.done { background: #f0fdf4; color: #16a34a; }
 
-  /* CARD */
   .card {
     background: var(--card);
     border-radius: 10px;
@@ -132,11 +124,9 @@
   .card-header .accent { color: var(--red); }
   .card-body { padding: 20px; }
 
-  /* MARKET CARD */
   .market-card { border-left: 4px solid var(--red); }
   .market-card .card-header { background: #1a1a1a; font-size: 16px; }
 
-  /* SECTION LABEL */
   .section-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 11px;
@@ -150,18 +140,8 @@
   }
   .section-label:first-child { margin-top: 0; }
 
-  /* FORM FIELDS */
-  .field-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 14px;
-  }
-  .field-row label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 5px;
-  }
+  .field-row { display: flex; flex-direction: column; margin-bottom: 14px; }
+  .field-row label { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 5px; }
   input[type="text"], input[type="number"], input[type="date"], textarea, select {
     width: 100%;
     padding: 9px 12px;
@@ -174,27 +154,14 @@
     transition: border-color 0.15s;
     -webkit-appearance: none;
   }
-  input:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: var(--red);
-    background: white;
-  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--red); background: white; }
   textarea { resize: vertical; min-height: 70px; }
 
-  /* GRID */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-  @media (max-width: 600px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
-  }
+  @media (max-width: 600px) { .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; } }
 
-  /* CHECKBOX ROW */
-  .check-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
+  .check-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
   @media (max-width: 500px) { .check-group { grid-template-columns: 1fr; } }
 
   .check-item {
@@ -211,8 +178,7 @@
   .check-item:hover { border-color: var(--red); background: #fff5f5; }
   .check-item input[type="checkbox"] { display: none; }
   .check-box {
-    width: 20px;
-    height: 20px;
+    width: 20px; height: 20px;
     border: 2px solid var(--border);
     border-radius: 4px;
     flex-shrink: 0;
@@ -222,20 +188,11 @@
     transition: all 0.15s;
     background: white;
   }
-  .check-item.checked .check-box {
-    background: var(--check-green);
-    border-color: var(--check-green);
-  }
-  .check-item.checked .check-box::after {
-    content: '✓';
-    color: white;
-    font-size: 13px;
-    font-weight: 700;
-  }
+  .check-item.checked .check-box { background: var(--check-green); border-color: var(--check-green); }
+  .check-item.checked .check-box::after { content: '✓'; color: white; font-size: 13px; font-weight: 700; }
   .check-item.checked { border-color: var(--check-green); background: #f0fdf4; }
   .check-label { font-size: 13px; font-weight: 500; color: #333; }
 
-  /* MARKET SELECT GRID */
   #market-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -260,7 +217,6 @@
   .market-select-item:hover { border-color: var(--red); color: var(--red); }
   .market-select-item.selected { border-color: var(--red); background: var(--red); color: white; }
 
-  /* BUTTONS */
   .btn {
     padding: 12px 28px;
     border: none;
@@ -280,34 +236,16 @@
   .btn-outline { background: white; color: var(--black); border: 2px solid var(--black); }
   .btn-outline:hover { background: var(--black); color: white; }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-row { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
 
-  .btn-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-  }
-
-  /* STEP PANELS */
   .step-panel { display: none; }
   .step-panel.active { display: block; }
 
-  /* SUCCESS */
-  #success-panel {
-    display: none;
-    text-align: center;
-    padding: 60px 20px;
-  }
+  #success-panel { display: none; text-align: center; padding: 60px 20px; }
   #success-panel .icon { font-size: 64px; margin-bottom: 16px; }
-  #success-panel h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 32px;
-    font-weight: 900;
-    margin-bottom: 8px;
-  }
+  #success-panel h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 900; margin-bottom: 8px; }
   #success-panel p { color: var(--muted); font-size: 15px; }
 
-  /* SUBMIT SPINNER */
   #submit-spinner { display: none; }
   .spinner {
     width: 20px; height: 20px;
@@ -321,10 +259,8 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* DROPDOWN */
   select { cursor: pointer; }
 
-  /* CURRENCY INPUT */
   .currency-wrap { position: relative; }
   .currency-wrap::before {
     content: '$';
@@ -337,44 +273,36 @@
     pointer-events: none;
   }
   .currency-wrap input { padding-left: 24px; }
-
-  /* NOTE BELOW FIELD */
   .field-note { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* Error banner */
+  #error-banner {
+    display: none;
+    background: #fff0f2;
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #a01830;
+    font-weight: 500;
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div id="header">
   <div id="header-top">
     <h1>Brightside <span>Windows</span> — Regional Daily Report</h1>
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#888;letter-spacing:1px;" id="header-date"></div>
   </div>
   <div id="totals-bar">
-    <div class="total-item">
-      <span class="total-label">Current Revenue</span>
-      <span class="total-value currency" id="tot-revenue">0</span>
-    </div>
-    <div class="total-item">
-      <span class="total-label">Revenue Needed</span>
-      <span class="total-value currency" id="tot-rev-needed">0</span>
-    </div>
-    <div class="total-item">
-      <span class="total-label">Appts Ran</span>
-      <span class="total-value" id="tot-appts-ran">0</span>
-    </div>
-    <div class="total-item">
-      <span class="total-label">Appts Not Ran</span>
-      <span class="total-value" id="tot-appts-not-ran">0</span>
-    </div>
-    <div class="total-item">
-      <span class="total-label">Appts Added</span>
-      <span class="total-value" id="tot-appts-added">0</span>
-    </div>
-    <div class="total-item">
-      <span class="total-label">Appts Needed</span>
-      <span class="total-value" id="tot-appts-needed">0</span>
-    </div>
+    <div class="total-item"><span class="total-label">Current Revenue</span><span class="total-value currency" id="tot-revenue">0</span></div>
+    <div class="total-item"><span class="total-label">Revenue Needed</span><span class="total-value currency" id="tot-rev-needed">0</span></div>
+    <div class="total-item"><span class="total-label">Appts Ran</span><span class="total-value" id="tot-appts-ran">0</span></div>
+    <div class="total-item"><span class="total-label">Appts Not Ran</span><span class="total-value" id="tot-appts-not-ran">0</span></div>
+    <div class="total-item"><span class="total-label">Appts Added</span><span class="total-value" id="tot-appts-added">0</span></div>
+    <div class="total-item"><span class="total-label">Appts Needed</span><span class="total-value" id="tot-appts-needed">0</span></div>
   </div>
 </div>
 
@@ -398,7 +326,6 @@
 
 <div id="main" style="display:none;">
 
-<!-- STEP INDICATOR -->
 <div id="step-indicator">
   <div class="step-pill active" id="pill-0">Markets</div>
   <div class="step-pill" id="pill-1">Personal KPIs</div>
@@ -407,16 +334,16 @@
   <div class="step-pill" id="pill-4">Submit</div>
 </div>
 
-<!-- STEP 0: MARKET SELECTION -->
+<div id="error-banner"></div>
+
+<!-- STEP 0 -->
 <div class="step-panel active" id="step-0">
   <div class="card">
     <div class="card-header">Step 1 — <span class="accent">Select Your Markets</span></div>
     <div class="card-body">
       <div class="field-row">
         <label>Regional Manager</label>
-        <select id="sel-regional-manager">
-          <option value="">Loading...</option>
-        </select>
+        <select id="sel-regional-manager"><option value="">Loading...</option></select>
       </div>
       <div class="field-row">
         <label>Date</label>
@@ -431,64 +358,28 @@
   </div>
 </div>
 
-<!-- STEP 1: PERSONAL KPIs -->
+<!-- STEP 1 -->
 <div class="step-panel" id="step-1">
   <div class="card">
     <div class="card-header">Step 2 — <span class="accent">Personal KPIs</span></div>
     <div class="card-body">
       <p class="section-label">Admin Checklist</p>
       <div class="check-group">
-        <label class="check-item" onclick="toggleCheck(this,'emails-checked')">
-          <input type="checkbox" id="emails-checked">
-          <div class="check-box"></div>
-          <span class="check-label">Emails Checked</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'schedule-posted')">
-          <input type="checkbox" id="schedule-posted">
-          <div class="check-box"></div>
-          <span class="check-label">Schedule Posted</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'office-clean')">
-          <input type="checkbox" id="office-clean">
-          <div class="check-box"></div>
-          <span class="check-label">Office Clean</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'office-stocked')">
-          <input type="checkbox" id="office-stocked">
-          <div class="check-box"></div>
-          <span class="check-label">Office Stocked</span>
-        </label>
+        <label class="check-item" onclick="toggleCheck(this,'emails-checked')"><input type="checkbox" id="emails-checked"><div class="check-box"></div><span class="check-label">Emails Checked</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'schedule-posted')"><input type="checkbox" id="schedule-posted"><div class="check-box"></div><span class="check-label">Schedule Posted</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'office-clean')"><input type="checkbox" id="office-clean"><div class="check-box"></div><span class="check-label">Office Clean</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'office-stocked')"><input type="checkbox" id="office-stocked"><div class="check-box"></div><span class="check-label">Office Stocked</span></label>
       </div>
-
       <p class="section-label">Regional Totals (auto-summed from markets)</p>
       <div class="grid-2">
-        <div class="field-row">
-          <label>Current Revenue</label>
-          <div class="currency-wrap"><input type="number" id="kpi-revenue" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
-        </div>
-        <div class="field-row">
-          <label>Revenue Needed</label>
-          <div class="currency-wrap"><input type="number" id="kpi-rev-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
-        </div>
-        <div class="field-row">
-          <label>Appointments Ran</label>
-          <input type="number" id="kpi-appts-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
-        </div>
-        <div class="field-row">
-          <label>Appointments Not Ran</label>
-          <input type="number" id="kpi-appts-not-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
-        </div>
-        <div class="field-row">
-          <label>Appointments Added</label>
-          <input type="number" id="kpi-appts-added" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
-        </div>
-        <div class="field-row">
-          <label>Appointments Needed</label>
-          <input type="number" id="kpi-appts-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666">
-        </div>
+        <div class="field-row"><label>Current Revenue</label><div class="currency-wrap"><input type="number" id="kpi-revenue" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div></div>
+        <div class="field-row"><label>Revenue Needed</label><div class="currency-wrap"><input type="number" id="kpi-rev-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div></div>
+        <div class="field-row"><label>Appointments Ran</label><input type="number" id="kpi-appts-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
+        <div class="field-row"><label>Appointments Not Ran</label><input type="number" id="kpi-appts-not-ran" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
+        <div class="field-row"><label>Appointments Added</label><input type="number" id="kpi-appts-added" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
+        <div class="field-row"><label>Appointments Needed</label><input type="number" id="kpi-appts-needed" readonly placeholder="Auto-sum" style="background:#f0f0f0;color:#666"></div>
       </div>
       <p class="field-note">Regional totals update automatically as you fill in each market below.</p>
-
       <div class="btn-row">
         <button class="btn btn-outline" onclick="goToStep(0)">← Back</button>
         <button class="btn btn-primary" onclick="goToStep(2)">Continue →</button>
@@ -497,7 +388,7 @@
   </div>
 </div>
 
-<!-- STEP 2: MARKET DETAILS (dynamically generated) -->
+<!-- STEP 2 -->
 <div class="step-panel" id="step-2">
   <div id="market-sections"></div>
   <div class="btn-row">
@@ -506,12 +397,11 @@
   </div>
 </div>
 
-<!-- STEP 3: FOLLOW UP -->
+<!-- STEP 3 -->
 <div class="step-panel" id="step-3">
   <div class="card">
     <div class="card-header">Step 4 — <span class="accent">Follow Up</span></div>
     <div class="card-body">
-
       <p class="section-label">Missing Money</p>
       <div id="mm-rows"></div>
       <button type="button" class="btn btn-outline" style="margin-bottom:14px;font-size:13px;padding:8px 16px;" onclick="addRow('mm')">+ Add Entry</button>
@@ -526,32 +416,14 @@
 
       <p class="section-label">Systems Purge</p>
       <div class="check-group">
-        <label class="check-item" onclick="toggleCheck(this,'purge-google')">
-          <input type="checkbox" id="purge-google">
-          <div class="check-box"></div>
-          <span class="check-label">Google Suite</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'purge-bamboo')">
-          <input type="checkbox" id="purge-bamboo">
-          <div class="check-box"></div>
-          <span class="check-label">BambooHR</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'purge-enzy')">
-          <input type="checkbox" id="purge-enzy">
-          <div class="check-box"></div>
-          <span class="check-label">Enzy</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this,'purge-siro')">
-          <input type="checkbox" id="purge-siro">
-          <div class="check-box"></div>
-          <span class="check-label">SIRO</span>
-        </label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-google')"><input type="checkbox" id="purge-google"><div class="check-box"></div><span class="check-label">Google Suite</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-bamboo')"><input type="checkbox" id="purge-bamboo"><div class="check-box"></div><span class="check-label">BambooHR</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-enzy')"><input type="checkbox" id="purge-enzy"><div class="check-box"></div><span class="check-label">Enzy</span></label>
+        <label class="check-item" onclick="toggleCheck(this,'purge-siro')"><input type="checkbox" id="purge-siro"><div class="check-box"></div><span class="check-label">SIRO</span></label>
       </div>
 
       <p class="section-label">EOD Regional Notes</p>
-      <div class="field-row">
-        <textarea id="eod-notes" placeholder="End of day regional wrap-up, flags for VP..."></textarea>
-      </div>
+      <div class="field-row"><textarea id="eod-notes" placeholder="End of day regional wrap-up, flags for VP..."></textarea></div>
 
       <div class="btn-row">
         <button class="btn btn-outline" onclick="goToStep(2)">← Back</button>
@@ -561,7 +433,7 @@
   </div>
 </div>
 
-<!-- STEP 4: REVIEW & SUBMIT -->
+<!-- STEP 4 -->
 <div class="step-panel" id="step-4">
   <div class="card">
     <div class="card-header">Step 5 — <span class="accent">Review & Submit</span></div>
@@ -578,114 +450,70 @@
   </div>
 </div>
 
-<!-- SUCCESS -->
 <div id="success-panel">
   <div class="icon">✅</div>
   <h2>Report Submitted!</h2>
   <p style="margin-bottom:8px;">Your daily submission has been logged in ClickUp.</p>
-  <p>A summary email has been sent to your ops inbox.</p>
   <div class="btn-row" style="justify-content:center;margin-top:24px;">
     <button class="btn btn-primary" onclick="resetForm()">Submit Another</button>
   </div>
 </div>
 
-</div><!-- /main -->
-</div><!-- /form-content -->
+</div>
 
 <script>
+// ============================================================
+// CONFIG — Update API key here only
+// ============================================================
+const CLICKUP_API_KEY = "pk_111998722_6IUJLD2JL542OF8NV4EGE62IJ9M9XFTI";
+const LIST_ID = "901327517949";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwllomk_TElSNSByynRXz2tuQ9hzY16nE0z7ydGV6j4pGZqfspTri6F0F3WKoggld06/exec";
 
 // ============================================================
-// DYNAMIC FOLLOW-UP ROWS
+// FIELD IDs — FIXED: removed all duplicated/corrupted IDs
 // ============================================================
-const rowCounts = {mm: 0, rs: 0, can: 0};
-
-const rowTemplates = {
-  mm: (i) => `
-    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="mm-row-${i}">
-      <div class="card-body" style="padding:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
-          <button type="button" onclick="removeRow('mm',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
-        </div>
-        <div class="grid-2">
-          <div class="field-row"><label>Homeowner</label><input type="text" id="mm-${i}-homeowner" placeholder="Homeowner name"></div>
-          <div class="field-row"><label>Contact</label><input type="text" id="mm-${i}-contact" placeholder="Rep name"></div>
-          <div class="field-row"><label>Status</label><input type="text" id="mm-${i}-status" placeholder="e.g. Pending, Resolved"></div>
-          <div class="field-row"><label>Amount</label><div class="currency-wrap"><input type="number" id="mm-${i}-amount" placeholder="0.00"></div></div>
-          <div class="field-row"><label>Pay Terms</label><select id="mm-${i}-pay-terms"><option value="">— Select —</option><option>Cash</option><option>AquaFinance</option><option>Momnt</option></select></div>
-          <div class="field-row"><label>Follow Up Date</label><input type="date" id="mm-${i}-follow-up-date"></div>
-        </div>
-        <div class="field-row"><label>Notes</label><textarea id="mm-${i}-notes" placeholder="Additional notes..."></textarea></div>
-      </div>
-    </div>`,
-  rs: (i) => `
-    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="rs-row-${i}">
-      <div class="card-body" style="padding:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
-          <button type="button" onclick="removeRow('rs',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
-        </div>
-        <div class="grid-2">
-          <div class="field-row"><label>Homeowner</label><input type="text" id="rs-${i}-homeowner" placeholder="Homeowner name"></div>
-          <div class="field-row"><label>Status</label><input type="text" id="rs-${i}-status" placeholder="e.g. Reschedule, Pending, Ran"></div>
-          <div class="field-row"><label>Contact</label><input type="text" id="rs-${i}-contact" placeholder="Rep name"></div>
-          <div class="field-row"><label>Follow Up Date</label><input type="date" id="rs-${i}-follow-up-date"></div>
-        </div>
-        <div class="field-row"><label>Notes</label><textarea id="rs-${i}-notes" placeholder="Additional notes..."></textarea></div>
-      </div>
-    </div>`,
-  can: (i) => `
-    <div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="can-row-${i}">
-      <div class="card-body" style="padding:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
-          <button type="button" onclick="removeRow('can',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;line-height:1;">×</button>
-        </div>
-        <div class="grid-2">
-          <div class="field-row"><label>Homeowner</label><input type="text" id="can-${i}-homeowner" placeholder="Homeowner name"></div>
-          <div class="field-row"><label>Reason</label><input type="text" id="can-${i}-reason" placeholder="Reason for cancellation"></div>
-          <div class="field-row"><label>Contact</label><input type="text" id="can-${i}-contact" placeholder="Rep name"></div>
-          <div class="field-row"><label>Follow Up Date</label><input type="date" id="can-${i}-follow-up-date"></div>
-        </div>
-        <div class="field-row"><label>Notes</label><textarea id="can-${i}-notes" placeholder="Additional notes..."></textarea></div>
-      </div>
-    </div>`
+const FIELD_IDS = {
+  regionalManager:    "f95adecd-f16a-4b9a-84b2-17ebbe2180d5",
+  region:             "84100130-0d11-43c9-b7d0-fbfae0b1c54b",
+  marketsCovered:     "0f6e3d30-61ea-4e70-8e11-c19228659932",
+  todaysDate:         "424b0281-9a63-4676-a54f-e0153e32a080",
+  currentRevenue:     "35c00f3f-762f-4488-84cc-46aadc43452a",
+  revenueNeeded:      "28592872-bf43-47a1-a9d4-19387895b506",
+  apptsRan:           "885e1467-e99f-4237-b03e-0e22087d8647",
+  apptsNotRan:        "a98fbedd-5dda-4735-abe4-c5cd17715545",
+  apptsAdded:         "8ba4141f-bf4d-4f2c-b3e9-a65a121192b1",
+  apptsNeeded:        "0f56f13e-9c39-418c-b5a0-10b8e5d35cc8",
+  emailsChecked:      "13f98ecf-d8c3-4485-87d6-e1deef62d0eb",
+  officeClean:        "dd9e2f58-a435-4a7c-a3d8-eb9761526d32",
+  officeStocked:      "513f66d3-c1e2-41f2-b182-a8c54b713d47",
+  schedulePosted:     "5f47ad45-5711-413c-847f-e09a9e2d30f4",
+  missingMoneyFlag:   "79b30be5-37c2-46c9-94e3-597fcf7dc228",
+  missingMoneyNotes:  "1642d940-cdba-4eb7-a5d7-3f834668ac83",
+  systemsPurgeGoogle: "7eb6894d-2378-493a-83fd-6cb666e2e2bb",
+  systemsPurgeBamboo: "0ed5af9f-be7f-4d41-bfee-55e3a55241a4",
+  systemsPurgeEnzy:   "1f061bd1-1a7c-4a93-aa33-b51afc615c56",
+  systemsPurgeSiro:   "ecef1f35-c6ac-483d-8acb-c48afbe5126f",
+  // FIXED: these were all doubled/corrupted — now using correct IDs
+  rescheduleHomeowner: "e613ac87-d9f2-4bfd-9e91-b3ba251e652a",
+  rescheduleStatus:    "3bbec664-6bac-431c-bb2c-575c49410264",
+  rescheduleContact:   "d7dbb46c-0371-4939-b3aa-3f2c22df3334",
+  rescheduleNotes:     "5a531140-3ba8-478a-8d55-2ea3dc9361b3",
+  rescheduleFollowUp:  "0ce952ee-6655-402d-bc64-aa9f68aec386",
+  cancellationHomeowner: "6cba7c4f-6b0d-448d-b262-9cccea8b857d",
+  cancellationReason:    "89ae9fbd-6ec4-4d41-b511-7d0ce4058dda",
+  cancellationContact:   "2f616b49-d0f5-48f3-a5b2-e27e30359f51",
+  cancellationNotes:     "c8a34e60-2a96-40c7-9d48-3ac0274f0193",
+  cancellationFollowUp:  "91835a5c-45e1-4274-93c0-7d195a020085",
+  eodNotes:           "24bd442c-edcf-46ba-a85a-bb9c9f633066",
+  vpFlags:            "be6c0c0a-565b-4576-ac24-e0bb4ad207b0",
 };
 
-function addRow(type) {
-  const i = rowCounts[type];
-  const container = document.getElementById(`${type}-rows`);
-  const div = document.createElement('div');
-  div.innerHTML = rowTemplates[type](i);
-  container.appendChild(div.firstElementChild);
-  rowCounts[type]++;
-}
-
-function removeRow(type, i) {
-  const el = document.getElementById(`${type}-row-${i}`);
-  if (el) el.remove();
-}
-
-// Collect all dynamic rows into a formatted string for ClickUp
-function collectRows(type, fields) {
-  const lines = [];
-  for (let i = 0; i < rowCounts[type]; i++) {
-    const row = [];
-    fields.forEach(f => {
-      const el = document.getElementById(`${type}-${i}-${f.id}`);
-      if (el && el.value) row.push(`${f.label}: ${el.value}`);
-    });
-    if (row.length) lines.push(`[Entry ${i+1}] ${row.join(' | ')}`);
-  }
-  return lines.join('\n');
-}
-
-// Add one row by default for each section on step 3 load
-function initFollowUpRows() {
-  if (rowCounts.mm === 0) addRow('mm');
-  if (rowCounts.rs === 0) addRow('rs');
-  if (rowCounts.can === 0) addRow('can');
-}
+// ============================================================
+// STATE
+// ============================================================
+let selectedMarkets = [];
+let currentStep = 0;
+const MARKET_FIELDS = {};
 
 // ============================================================
 // PASSWORD GATE
@@ -704,7 +532,6 @@ function checkPassword() {
   }
 }
 
-// Auto-unlock if already authenticated this session
 window.addEventListener('load', () => {
   if (sessionStorage.getItem('bs_auth') === '1') {
     document.getElementById('password-gate').style.display = 'none';
@@ -713,120 +540,36 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// CONFIG
+// ERROR DISPLAY — always visible, never silently fails
 // ============================================================
-const CLICKUP_API_KEY = "pk_111998722_6IUJLD2JL542OF8NV4EGE62IJ9M9XFTI"; // ← Update if key changes
-const LIST_ID = "901327517949";
-const GAS_URL = "https://script.google.com/macros/s/AKfycbwllomk_TElSNSByynRXz2tuQ9hzY16nE0z7ydGV6j4pGZqfspTri6F0F3WKoggld06/exec";
-
-// Field IDs
-const FIELD_IDS = {
-  regionalManager: "f95adecd-f16a-4b9a-84b2-17ebbe2180d5",
-  region: "84100130-0d11-43c9-b7d0-fbfae0b1c54b",
-  marketsCovered: "0f6e3d30-61ea-4e70-8e11-c19228659932",
-  todaysDate: "424b0281-9a63-4676-a54f-e0153e32a080",
-  currentRevenue: "35c00f3f-762f-4488-84cc-46aadc43452a",
-  revenueNeeded: "28592872-bf43-47a1-a9d4-19387895b506",
-  apptsRan: "885e1467-e99f-4237-b03e-0e22087d8647",
-  apptsNotRan: "a98fbedd-5dda-4735-abe4-c5cd17715545",
-  apptsAdded: "8ba4141f-bf4d-4f2c-b3e9-a65a121192b1",
-  apptsNeeded: "0f56f13e-9c39-418c-b5a0-10b8e5d35cc8",
-  emailsChecked: "13f98ecf-d8c3-4485-87d6-e1deef62d0eb",
-  officeClean: "dd9e2f58-a435-4a7c-a3d8-eb9761526d32",
-  officeStocked: "513f66d3-c1e2-41f2-b182-a8c54b713d47",
-  schedulePosted: "5f47ad45-5711-413c-847f-e09a9e2d30f4",
-  missingMoneyFlag: "79b30be5-37c2-46c9-94e3-597fcf7dc228",
-  missingMoneyNotes: "1642d940-cdba-4eb7-a5d7-3f834668ac83",
-  systemsPurgeGoogle: "7eb6894d-2378-493a-83fd-6cb666e2e2bb",
-  systemsPurgeBamboo: "0ed5af9f-be7f-4d41-bfee-55e3a55241a4",
-  systemsPurgeEnzy: "1f061bd1-1a7c-4a93-aa33-b51afc615c56",
-  systemsPurgeSiro: "ecef1f35-c6ac-483d-8acb-c48afbe5126f",
-  rescheduleHomeowner: "e613ac87-d9f2-4bfd-9e91-b3ba251e652a-d9f2-4bfd-9e91-b3ba251e652a",
-  rescheduleStatus: "3bbec664-6bac-431c-bb2c-575c49410264-6bac-431c-bb2c-575c49410264",
-  rescheduleContact: "d7dbb46c-0371-4939-b3aa-3f2c22df3334-0371-4939-b3aa-3f2c22df3334",
-  rescheduleNotes: "5a531140-3ba8-478a-8d55-2ea3dc9361b3-3ba8-478a-8d55-2ea3dc9361b3",
-  rescheduleFollowUp: "0ce952ee-6655-402d-bc64-aa9f68aec386-6655-402d-bc64-aa9f68aec386",
-  cancellationHomeowner: "6cba7c4f-6b0d-448d-b262-9cccea8b857d-6b0d-448d-b262-9cccea8b857d",
-  cancellationReason: "89ae9fbd-6ec4-4d41-b511-7d0ce4058dda-6ec4-4d41-b511-7d0ce4058dda",
-  cancellationContact: "2f616b49-d0f5-48f3-a5b2-e27e30359f51-d0f5-48f3-a5b2-e27e30359f51",
-  cancellationNotes: "c8a34e60-2a96-40c7-9d48-3ac0274f0193-2a96-40c7-9d48-3ac0274f0193",
-  cancellationFollowUp: "91835a5c-45e1-4274-93c0-7d195a020085-45e1-4274-93c0-7d195a020085",
-  eodNotes: "24bd442c-edcf-46ba-a85a-bb9c9f633066",
-  vpFlags: "be6c0c0a-565b-4576-ac24-e0bb4ad207b0",
-};
-
-// Markets config
-const REGIONS = [
-  { region: "Oregon Region", regionId: "3c835a80-506f-4e45-9e90-b376507464d5", markets: [
-    { name: "Portland OR", labelId: "5a069563-2035-4531-9265-cbb3ddeafe7b" },
-    { name: "Vancouver WA", labelId: "65e8f13d-5851-4ece-bd23-26f6d9444cef" },
-    { name: "Salem OR", labelId: "9482f237-a2d9-4c7e-826c-6eb9bf909182" },
-    { name: "Eugene OR", labelId: "21b3b2a7-2cbc-4fe8-b6f6-e1a87d898179" },
-    { name: "Bend OR", labelId: "8193d987-f4df-4a5e-ada6-9f21a2b7bb82" },
-    { name: "Medford OR", labelId: "a86918ce-1948-4105-8d4a-a1e46d10c03f" },
-  ]},
-  { region: "Washington W Region", regionId: "b9753803-2c2a-4a92-bb13-4e4558a6e9ce", markets: [
-    { name: "Seattle WA", labelId: "aded9767-f938-4ba6-8415-23fa1c055061" },
-    { name: "Everett WA", labelId: "16f4c82f-cee1-43c1-9eee-f94629bbe0b2" },
-    { name: "Silverdale WA", labelId: "839543a1-bc44-4cc2-b4e8-4c986a826ce7" },
-  ]},
-  { region: "Washington E Region", regionId: "37c8b2e2-214b-4bdd-b47b-1e649b39bab8", markets: [
-    { name: "Kennewick WA", labelId: "72fc8bd7-a1da-4684-a956-5759558948c2" },
-    { name: "Spokane WA", labelId: "3330e7a3-147c-439b-a6a1-e7e051df277c" },
-    { name: "Billings MT", labelId: "499fc008-bffb-412e-848f-44ab1325c6e1" },
-  ]},
-  { region: "Northwest Region", regionId: "b8100c85-9546-40d1-bb30-6d98ffb047b4", markets: [
-    { name: "Boise ID", labelId: "a210c02e-501e-458f-a6a7-8c02d2fe2817" },
-    { name: "Salt Lake City UT", labelId: "fb1735b2-9f25-4deb-8f39-b333057cfa57" },
-    { name: "Denver CO", labelId: "952902a4-9a8a-41e8-9b07-7a32006d670b" },
-    { name: "Reno NV", labelId: "8acb03c5-ca9c-441c-a9f0-5ce17c422e31" },
-  ]},
-  { region: "Central North Region", regionId: "1a8a883f-c5d1-4464-9eb2-19d12f8c28bb", markets: [
-    { name: "Indianapolis IN", labelId: "16047b67-d1b8-4a25-a082-9209b5b6b333" },
-    { name: "Kansas City KC", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a7" },
-    { name: "St Louis MO", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a8" },
-    { name: "Columbus OH", labelId: "5817047f-8027-4ae2-8c88-3d9734df24a9" },
-    { name: "Minneapolis MN", labelId: "5817047f-8027-4ae2-8c88-3d9734df24aa" },
-  ]},
-  { region: "Central South Region", regionId: "bf8d2309-955a-49f4-83d8-d8ee15af5d26", markets: [
-    { name: "Dallas Fort Worth TX", labelId: "ea841624-db03-4ccf-852f-3386ee0efdf7" },
-    { name: "Houston TX", labelId: "c5a5fe1f-9f46-4f91-bfe5-e521e5f80efd" },
-    { name: "Austin TX", labelId: "e424b831-df31-4214-9c77-4e531ca1e4f0" },
-    { name: "Oklahoma City TX", labelId: "c2c38e78-7dfe-48a1-8c74-0df4dbc4dd16" },
-    { name: "Dallas TX", labelId: "41bfe1a2-d3b6-455b-88e3-0ba3e3d69ca0" },
-    { name: "San Antonio TX", labelId: "san-antonio-tx-label-id" },
-  ]},
-  { region: "South East Region", regionId: "f1d334d2-13fc-4688-9df4-d1bdfc4572d1", markets: [
-    { name: "Nashville TN", labelId: "5817047f-8027-4ae2-8c88-3d9734df24ab" },
-  ]},
-];
-
-// Per-market field IDs (suffix -> field id per market)
-const MARKET_FIELDS = {};
-
-// This object is populated at the bottom with all per-market field IDs
-// Format: MARKET_FIELDS["Market Name"] = { "Suffix": "field-id", ... }
-
-// ============================================================
-// STATE
-// ============================================================
-let selectedMarkets = [];
-let currentStep = 0;
+function showError(msg) {
+  const banner = document.getElementById('error-banner');
+  banner.style.display = 'block';
+  banner.textContent = '⚠️ ' + msg;
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function hideError() {
+  document.getElementById('error-banner').style.display = 'none';
+}
 
 // ============================================================
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
-  // Set today's date
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('sel-date').value = today;
-  document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-  // Load Regional Manager options from ClickUp
+  document.getElementById('header-date').textContent = new Date().toLocaleDateString('en-US', {
+    weekday:'long', year:'numeric', month:'long', day:'numeric'
+  });
   await loadRegionalManagers();
+  await loadMarketFields();
+  buildMarketGrid();
+});
 
-  // Build market grid from static list
-  const grid = document.getElementById('market-grid');
+// ============================================================
+// BUILD MARKET GRID (static — always fast)
+// ============================================================
+function buildMarketGrid() {
   const MARKETS_LIST = [
     "Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR",
     "Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT",
@@ -835,6 +578,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     "Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX",
     "Nashville TN","San Antonio TX"
   ];
+  const grid = document.getElementById('market-grid');
+  grid.innerHTML = '';
   MARKETS_LIST.forEach(name => {
     const div = document.createElement('div');
     div.className = 'market-select-item';
@@ -843,7 +588,96 @@ document.addEventListener('DOMContentLoaded', async () => {
     div.onclick = () => toggleMarket(div, name);
     grid.appendChild(div);
   });
-});
+}
+
+// ============================================================
+// LOAD MARKET FIELD IDs FROM CLICKUP (dynamic lookup)
+// ============================================================
+async function loadMarketFields() {
+  try {
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
+      headers: { 'Authorization': CLICKUP_API_KEY }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const allFields = data.fields || [];
+    const fieldMap = {};
+    allFields.forEach(f => { fieldMap[f.name] = f.id; });
+
+    const MARKETS = [
+      "Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR",
+      "Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT",
+      "Boise ID","Salt Lake City UT","Denver CO","Reno NV",
+      "Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN",
+      "Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX",
+      "Nashville TN","San Antonio TX"
+    ];
+    const SUFFIXES = [
+      "Doors Knocked","Conversations","Appts Set","Shadowed","Notes",
+      "Recruiting Calls","Recruiting Scheduled","Recruiting Ran","Recruiting Offered",
+      "Personnel Tracker Checked","Recruiting Calendar Match","Recruiting Calendar Status Updated",
+      "Indeed Cleaned Out","Interviews Ran","Candidates Hired",
+      "Team Meeting Held","Team Meeting Topic","Closer Meeting Held","Closer Meeting Topic",
+      "Reps in Field","Closers in Field","Appointments Assigned","Appointments Confirmed",
+      "Appointments Resulted","SIRO Analytics Flag","SIRO Analytics Notes",
+      "1st Check In","2nd Check In"
+    ];
+
+    MARKETS.forEach(market => {
+      MARKET_FIELDS[market] = {};
+      SUFFIXES.forEach(suffix => {
+        const id = fieldMap[`${market} - ${suffix}`];
+        if (id) MARKET_FIELDS[market][suffix] = id;
+      });
+    });
+    console.log('Market fields loaded successfully');
+  } catch(e) {
+    console.error('Failed to load market fields:', e);
+    showError('Warning: Could not load market field configuration from ClickUp. Submissions may be incomplete. Check your connection and refresh if needed.');
+  }
+}
+
+// ============================================================
+// LOAD REGIONAL MANAGERS — FIXED: uses option.id not orderindex
+// ============================================================
+async function loadRegionalManagers() {
+  const RM_FIELD_ID = 'f95adecd-f16a-4b9a-84b2-17ebbe2180d5';
+  const select = document.getElementById('sel-regional-manager');
+  try {
+    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
+      headers: { 'Authorization': CLICKUP_API_KEY }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const rmField = data.fields.find(f => f.id === RM_FIELD_ID);
+    if (!rmField || !rmField.type_config || !rmField.type_config.options) {
+      throw new Error('Regional Manager field not found');
+    }
+    select.innerHTML = '<option value="">— Select your name —</option>';
+    rmField.type_config.options
+      .sort((a,b) => a.orderindex - b.orderindex)
+      .forEach(opt => {
+        const option = document.createElement('option');
+        // FIX: was using opt.orderindex (0,1,2...) — ClickUp needs the actual option UUID
+        option.value = opt.id;
+        option.textContent = opt.name;
+        select.appendChild(option);
+      });
+    console.log('Regional Managers loaded:', rmField.type_config.options.map(o=>o.name));
+  } catch(e) {
+    console.error('Failed to load Regional Managers:', e.message);
+    // Fallback with correct UUIDs from live field list
+    select.innerHTML = `
+      <option value="">— Select your name —</option>
+      <option value="27582830-f518-4870-95c2-85fe0233eec9">Edgar Reyes</option>
+      <option value="761503c4-46fc-447a-9dcd-0d9022ee0b86">James Amis</option>
+      <option value="7265baf7-c189-4132-a289-9a37aaa09777">Garrett Daly</option>
+      <option value="fafc50a3-eb8f-42e5-8024-78168b1ad84c">Undecided</option>
+      <option value="9313f2bc-0946-435c-b9f4-ae9eeac5fa69">Anthony Sylvester</option>
+      <option value="b6cc3c74-69bf-499a-98bb-c4dd534fcf23">Cade Perrins</option>
+      <option value="91306700-1767-4f5b-812a-530dbe4cd4d8">Matt Elkins</option>`;
+  }
+}
 
 // ============================================================
 // MARKET SELECTION
@@ -859,12 +693,13 @@ function toggleMarket(el, name) {
 }
 
 function goToStep1() {
+  hideError();
   if (!document.getElementById('sel-regional-manager').value) {
-    alert('Please select your name before continuing.');
+    showError('Please select your name before continuing.');
     return;
   }
   if (selectedMarkets.length === 0) {
-    alert('Please select at least one market.');
+    showError('Please select at least one market before continuing.');
     return;
   }
   buildMarketSections();
@@ -877,14 +712,12 @@ function goToStep1() {
 function buildMarketSections() {
   const container = document.getElementById('market-sections');
   container.innerHTML = '';
-
   selectedMarkets.forEach((market, idx) => {
     const card = document.createElement('div');
     card.className = 'card market-card';
     card.innerHTML = `
       <div class="card-header">Market ${idx+1} — <span class="accent">${market}</span></div>
       <div class="card-body">
-
         <p class="section-label">Reporting</p>
         <div class="grid-2">
           <div class="field-row"><label>Current Revenue</label><div class="currency-wrap"><input type="number" id="${mf(market,'current-revenue')}" placeholder="0" oninput="updateTotals()"></div></div>
@@ -898,7 +731,6 @@ function buildMarketSections() {
           <label class="check-item" onclick="toggleCheck(this,'${mf(market,'staffing-rundown')}')"><input type="checkbox" id="${mf(market,'staffing-rundown')}"><div class="check-box"></div><span class="check-label">Staffing Rundown Checked</span></label>
           <label class="check-item" onclick="toggleCheck(this,'${mf(market,'personnel-tracker')}')"><input type="checkbox" id="${mf(market,'personnel-tracker')}"><div class="check-box"></div><span class="check-label">Personnel Tracker Checked</span></label>
         </div>
-
         <p class="section-label">Recruiting</p>
         <div class="grid-2">
           <div class="field-row"><label>Recruiting Calls Made</label><input type="number" id="${mf(market,'rec-calls')}" placeholder="0"></div>
@@ -910,7 +742,6 @@ function buildMarketSections() {
           <label class="check-item" onclick="toggleCheck(this,'${mf(market,'rec-cal-updated')}')"><input type="checkbox" id="${mf(market,'rec-cal-updated')}"><div class="check-box"></div><span class="check-label">Cal. Status Updated</span></label>
           <label class="check-item" onclick="toggleCheck(this,'${mf(market,'indeed-cleaned')}')"><input type="checkbox" id="${mf(market,'indeed-cleaned')}"><div class="check-box"></div><span class="check-label">Indeed Cleaned Out</span></label>
         </div>
-
         <p class="section-label">Meetings</p>
         <div class="check-group">
           <label class="check-item" onclick="toggleCheck(this,'${mf(market,'team-meeting')}')"><input type="checkbox" id="${mf(market,'team-meeting')}"><div class="check-box"></div><span class="check-label">Team Meeting Held</span></label>
@@ -920,7 +751,6 @@ function buildMarketSections() {
           <div class="field-row"><label>Team Meeting Topic</label><input type="text" id="${mf(market,'team-topic')}" placeholder="Topic covered..."></div>
           <div class="field-row"><label>Closer Meeting Topic</label><input type="text" id="${mf(market,'closer-topic')}" placeholder="Topic covered..."></div>
         </div>
-
         <p class="section-label">Field Work</p>
         <div class="grid-3">
           <div class="field-row"><label>Reps in Field</label><input type="number" id="${mf(market,'reps-field')}" placeholder="0"></div>
@@ -941,13 +771,11 @@ function buildMarketSections() {
         </div>
         <div class="field-row"><label>SIRO Analytics Notes</label><textarea id="${mf(market,'siro-notes')}" placeholder="Coaching insight..."></textarea></div>
         <div class="field-row"><label>Market Notes</label><textarea id="${mf(market,'notes')}" placeholder="Any additional notes for this market..."></textarea></div>
-      </div>
-    `;
+      </div>`;
     container.appendChild(card);
   });
 }
 
-// Helper: generate unique field ID for a market+field combo
 function mf(market, field) {
   return `mkt_${market.replace(/\s+/g,'_')}_${field}`;
 }
@@ -956,14 +784,14 @@ function mf(market, field) {
 // TOTALS
 // ============================================================
 function updateTotals() {
-  let revenue = 0, revNeeded = 0, ran = 0, notRan = 0, added = 0, needed = 0;
+  let revenue=0, revNeeded=0, ran=0, notRan=0, added=0, needed=0;
   selectedMarkets.forEach(market => {
-    revenue += parseFloat(document.getElementById(mf(market,'current-revenue'))?.value || 0);
+    revenue   += parseFloat(document.getElementById(mf(market,'current-revenue'))?.value || 0);
     revNeeded += parseFloat(document.getElementById(mf(market,'revenue-needed'))?.value || 0);
-    ran += parseInt(document.getElementById(mf(market,'appts-ran'))?.value || 0);
-    notRan += parseInt(document.getElementById(mf(market,'appts-not-ran'))?.value || 0);
-    added += parseInt(document.getElementById(mf(market,'appts-added'))?.value || 0);
-    needed += parseInt(document.getElementById(mf(market,'appts-needed'))?.value || 0);
+    ran       += parseInt(document.getElementById(mf(market,'appts-ran'))?.value || 0);
+    notRan    += parseInt(document.getElementById(mf(market,'appts-not-ran'))?.value || 0);
+    added     += parseInt(document.getElementById(mf(market,'appts-added'))?.value || 0);
+    needed    += parseInt(document.getElementById(mf(market,'appts-needed'))?.value || 0);
   });
   document.getElementById('tot-revenue').textContent = revenue.toLocaleString();
   document.getElementById('tot-rev-needed').textContent = revNeeded.toLocaleString();
@@ -971,7 +799,6 @@ function updateTotals() {
   document.getElementById('tot-appts-not-ran').textContent = notRan;
   document.getElementById('tot-appts-added').textContent = added;
   document.getElementById('tot-appts-needed').textContent = needed;
-  // Mirror to KPI fields
   document.getElementById('kpi-revenue').value = revenue || '';
   document.getElementById('kpi-rev-needed').value = revNeeded || '';
   document.getElementById('kpi-appts-ran').value = ran || '';
@@ -994,15 +821,16 @@ function toggleCheck(label, id) {
 // STEP NAVIGATION
 // ============================================================
 function goToStep(n) {
+  hideError();
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.step-pill').forEach(p => p.classList.remove('active'));
   document.getElementById(`step-${n}`).classList.add('active');
   document.getElementById(`pill-${n}`).classList.add('active');
-  for (let i = 0; i < n; i++) document.getElementById(`pill-${i}`).classList.add('done');
+  for (let i=0; i<n; i++) document.getElementById(`pill-${i}`).classList.add('done');
   currentStep = n;
   if (n === 3) initFollowUpRows();
   if (n === 4) buildReview();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 // ============================================================
@@ -1012,21 +840,105 @@ function buildReview() {
   const rm = document.getElementById('sel-regional-manager');
   const rmName = rm.options[rm.selectedIndex]?.text || '—';
   const date = document.getElementById('sel-date').value;
-  const markets = selectedMarkets.join(', ');
   document.getElementById('review-summary').innerHTML = `
     <p><strong>Regional Manager:</strong> ${rmName}</p>
     <p><strong>Date:</strong> ${date}</p>
-    <p><strong>Markets:</strong> ${markets}</p>
+    <p><strong>Markets:</strong> ${selectedMarkets.join(', ')}</p>
     <p><strong>Current Revenue:</strong> $${document.getElementById('tot-revenue').textContent}</p>
     <p><strong>Appointments Ran:</strong> ${document.getElementById('tot-appts-ran').textContent}</p>
-    <p style="margin-top:12px;color:#888;font-size:13px;">Review your entries above. Click Submit to log this report.</p>
-  `;
+    <p style="margin-top:12px;color:#888;font-size:13px;">Review your entries above. Click Submit to log this report.</p>`;
+}
+
+// ============================================================
+// FOLLOW-UP ROWS
+// ============================================================
+const rowCounts = {mm:0, rs:0, can:0};
+
+const rowTemplates = {
+  mm: (i) => `<div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="mm-row-${i}">
+    <div class="card-body" style="padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+        <button type="button" onclick="removeRow('mm',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;">×</button>
+      </div>
+      <div class="grid-2">
+        <div class="field-row"><label>Homeowner</label><input type="text" id="mm-${i}-homeowner" placeholder="Homeowner name"></div>
+        <div class="field-row"><label>Contact</label><input type="text" id="mm-${i}-contact" placeholder="Rep name"></div>
+        <div class="field-row"><label>Status</label><input type="text" id="mm-${i}-status" placeholder="e.g. Pending, Resolved"></div>
+        <div class="field-row"><label>Amount</label><div class="currency-wrap"><input type="number" id="mm-${i}-amount" placeholder="0.00"></div></div>
+        <div class="field-row"><label>Pay Terms</label><select id="mm-${i}-pay-terms"><option value="">— Select —</option><option>Cash</option><option>AquaFinance</option><option>Momnt</option></select></div>
+        <div class="field-row"><label>Follow Up Date</label><input type="date" id="mm-${i}-follow-up-date"></div>
+      </div>
+      <div class="field-row"><label>Notes</label><textarea id="mm-${i}-notes" placeholder="Additional notes..."></textarea></div>
+    </div></div>`,
+  rs: (i) => `<div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="rs-row-${i}">
+    <div class="card-body" style="padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+        <button type="button" onclick="removeRow('rs',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;">×</button>
+      </div>
+      <div class="grid-2">
+        <div class="field-row"><label>Homeowner</label><input type="text" id="rs-${i}-homeowner" placeholder="Homeowner name"></div>
+        <div class="field-row"><label>Status</label><input type="text" id="rs-${i}-status" placeholder="e.g. Reschedule, Pending"></div>
+        <div class="field-row"><label>Contact</label><input type="text" id="rs-${i}-contact" placeholder="Rep name"></div>
+        <div class="field-row"><label>Follow Up Date</label><input type="date" id="rs-${i}-follow-up-date"></div>
+      </div>
+      <div class="field-row"><label>Notes</label><textarea id="rs-${i}-notes" placeholder="Additional notes..."></textarea></div>
+    </div></div>`,
+  can: (i) => `<div class="card" style="border-left:3px solid var(--red);margin-bottom:12px;" id="can-row-${i}">
+    <div class="card-body" style="padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:1px;">Entry ${i+1}</span>
+        <button type="button" onclick="removeRow('can',${i})" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:18px;">×</button>
+      </div>
+      <div class="grid-2">
+        <div class="field-row"><label>Homeowner</label><input type="text" id="can-${i}-homeowner" placeholder="Homeowner name"></div>
+        <div class="field-row"><label>Reason</label><input type="text" id="can-${i}-reason" placeholder="Reason for cancellation"></div>
+        <div class="field-row"><label>Contact</label><input type="text" id="can-${i}-contact" placeholder="Rep name"></div>
+        <div class="field-row"><label>Follow Up Date</label><input type="date" id="can-${i}-follow-up-date"></div>
+      </div>
+      <div class="field-row"><label>Notes</label><textarea id="can-${i}-notes" placeholder="Additional notes..."></textarea></div>
+    </div></div>`
+};
+
+function addRow(type) {
+  const i = rowCounts[type];
+  const container = document.getElementById(`${type}-rows`);
+  const div = document.createElement('div');
+  div.innerHTML = rowTemplates[type](i);
+  container.appendChild(div.firstElementChild);
+  rowCounts[type]++;
+}
+
+function removeRow(type, i) {
+  const el = document.getElementById(`${type}-row-${i}`);
+  if (el) el.remove();
+}
+
+function initFollowUpRows() {
+  if (rowCounts.mm === 0) addRow('mm');
+  if (rowCounts.rs === 0) addRow('rs');
+  if (rowCounts.can === 0) addRow('can');
+}
+
+function collectRows(type, fields) {
+  const lines = [];
+  for (let i=0; i<rowCounts[type]; i++) {
+    const row = [];
+    fields.forEach(f => {
+      const el = document.getElementById(`${type}-${i}-${f.id}`);
+      if (el && el.value) row.push(`${f.label}: ${el.value}`);
+    });
+    if (row.length) lines.push(`[Entry ${i+1}] ${row.join(' | ')}`);
+  }
+  return lines.join('\n');
 }
 
 // ============================================================
 // SUBMIT
 // ============================================================
 async function submitForm() {
+  hideError();
   const btn = document.getElementById('submit-btn');
   document.getElementById('submit-text').style.display = 'none';
   document.getElementById('submit-spinner').style.display = 'inline';
@@ -1040,7 +952,6 @@ async function submitForm() {
     const markets = selectedMarkets.join(', ');
     const taskName = `Daily Report — ${rmName} — ${date} — ${markets}`;
 
-    // Submit to ClickUp
     const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/task`, {
       method: 'POST',
       headers: { 'Authorization': CLICKUP_API_KEY, 'Content-Type': 'application/json' },
@@ -1049,37 +960,33 @@ async function submitForm() {
 
     if (!res.ok) {
       const errBody = await res.json().catch(() => ({}));
-      throw new Error(`ClickUp error: ${res.status} — ${JSON.stringify(errBody)}`);
+      throw new Error(`ClickUp error ${res.status}: ${JSON.stringify(errBody)}`);
     }
 
-    // Send email via Google Apps Script using GET (bypasses CORS)
+    // Send email via GAS
     if (GAS_URL) {
       try {
         const emailData = buildCompactEmailData(rmName, date, markets);
         const params = new URLSearchParams({
           to: 'formsubmissions@brightsidewindows.com',
-          subject: '[Brightside] Daily Submission — ' + rmName + ' — ' + date + ' — ' + markets,
+          subject: '[Brightside] Daily Submission — ' + rmName + ' — ' + date,
           data: encodeURIComponent(JSON.stringify(emailData))
         });
-        const gasURL = GAS_URL + '?' + params.toString();
-        console.log('Sending email to GAS:', gasURL.substring(0, 200));
-        // Use both image and fetch for redundancy
-        const img = new Image();
-        img.src = gasURL;
-        // Also try fetch with no-cors
-        fetch(gasURL, {mode: 'no-cors'}).catch(e => console.log('fetch email:', e));
+        fetch(GAS_URL + '?' + params.toString(), {mode:'no-cors'}).catch(()=>{});
       } catch(emailErr) {
         console.error('Email error:', emailErr);
       }
     }
 
-    // Show success
     document.getElementById('step-4').style.display = 'none';
     document.getElementById('step-indicator').style.display = 'none';
     document.getElementById('success-panel').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
 
-  } catch (err) {
-    alert('Submission failed: ' + err.message);
+  } catch(err) {
+    // ALWAYS show the error visibly — never silently reset
+    showError('Submission failed: ' + err.message);
+    console.error('Submit error:', err);
     document.getElementById('submit-text').style.display = 'inline';
     document.getElementById('submit-spinner').style.display = 'none';
     btn.disabled = false;
@@ -1092,22 +999,59 @@ async function submitForm() {
 function buildCustomFields() {
   const fields = [];
   const add = (id, value) => { if (id && value !== null && value !== undefined && value !== '') fields.push({id, value}); };
-  const addBool = (id, elId) => { const el = document.getElementById(elId); if (el) fields.push({id, value: el.checked ? 'true' : 'false'}); };
-  const addNum = (id, elId) => { const el = document.getElementById(elId); if (el && el.value !== '') add(id, el.value); };
+  const addBool = (id, elId) => { const el = document.getElementById(elId); if (el) fields.push({id, value: el.checked}); };
+  const addNum = (id, elId) => { const el = document.getElementById(elId); if (el && el.value !== '') add(id, parseFloat(el.value)); };
   const addText = (id, elId) => { const el = document.getElementById(elId); if (el && el.value.trim()) add(id, el.value.trim()); };
 
-  // Regional Manager
+  // Regional Manager — FIX: value is now the UUID option ID string
   const rmVal = document.getElementById('sel-regional-manager').value;
-  if (rmVal) fields.push({id: FIELD_IDS.regionalManager, value: parseInt(rmVal)});
+  if (rmVal) fields.push({id: FIELD_IDS.regionalManager, value: rmVal});
 
   // Date
   const dateVal = document.getElementById('sel-date').value;
-  if (dateVal) fields.push({id: FIELD_IDS.todaysDate, value: String(new Date(dateVal).getTime())});
+  if (dateVal) fields.push({id: FIELD_IDS.todaysDate, value: String(new Date(dateVal + 'T12:00:00').getTime())});
 
-  // Markets covered text
-  add(FIELD_IDS.vpFlags, selectedMarkets.join(', '));
+  // Markets covered label IDs
+  // Markets Covered label IDs — confirmed against live ClickUp field options
+  // NOTE: St Louis MO, Columbus OH, Minneapolis MN, Nashville TN, San Antonio TX
+  // are NOT yet in the ClickUp Markets Covered labels field. To fix: go to ClickUp →
+  // list 901327517949 → Markets Covered field → add those 5 as label options,
+  // then paste the new option IDs below to replace the null entries.
+  const MARKET_LABEL_IDS = {
+    'Portland OR':        '5a069563-2035-4531-9265-cbb3ddeafe7b',
+    'Vancouver WA':       '65e8f13d-5851-4ece-bd23-26f6d9444cef',
+    'Salem OR':           '9482f237-a2d9-4c7e-826c-6eb9bf909182',
+    'Eugene OR':          '21b3b2a7-2cbc-4fe8-b6f6-e1a87d898179',
+    'Bend OR':            '8193d987-f4df-4a5e-ada6-9f21a2b7bb82',
+    'Medford OR':         'a86918ce-1948-4105-8d4a-a1e46d10c03f',
+    'Seattle WA':         'aded9767-f938-4ba6-8415-23fa1c055061',
+    'Everett WA':         '16f4c82f-cee1-43c1-9eee-f94629bbe0b2',
+    'Silverdale WA':      '839543a1-bc44-4cc2-b4e8-4c986a826ce7',
+    'Kennewick WA':       '72fc8bd7-a1da-4684-a956-5759558948c2',
+    'Spokane WA':         '3330e7a3-147c-439b-a6a1-e7e051df277c',
+    'Billings MT':        '499fc008-bffb-412e-848f-44ab1325c6e1',
+    'Boise ID':           'a210c02e-501e-458f-a6a7-8c02d2fe2817',
+    'Salt Lake City UT':  'fb1735b2-9f25-4deb-8f39-b333057cfa57',
+    'Denver CO':          '952902a4-9a8a-41e8-9b07-7a32006d670b',
+    'Reno NV':            '8acb03c5-ca9c-441c-a9f0-5ce17c422e31',
+    'Indianapolis IN':    '16047b67-d1b8-4a25-a082-9209b5b6b333',
+    'Kansas City KC':     '5817047f-8027-4ae2-8c88-3d9734df24a7',
+    'Dallas Fort Worth TX': 'ea841624-db03-4ccf-852f-3386ee0efdf7',
+    'Houston TX':         'c5a5fe1f-9f46-4f91-bfe5-e521e5f80efd',
+    'Austin TX':          'e424b831-df31-4214-9c77-4e531ca1e4f0',
+    'Oklahoma City TX':   'c2c38e78-7dfe-48a1-8c74-0df4dbc4dd16',
+    'Dallas TX':          '41bfe1a2-d3b6-455b-88e3-0ba3e3d69ca0',
+    // IDs confirmed live from ClickUp after adding these 5 label options
+    'St Louis MO':        '975d6af3-03e1-4cd4-a962-e4564a700132',
+    'Columbus OH':        'd351c45c-1d0e-4e70-b422-60b774ebafae',
+    'Minneapolis MN':     'f74bd8ef-a9c4-4add-977a-2ccccdedd02f',
+    'Nashville TN':       'eb758576-5201-40b3-9b41-9ec5d5164369',
+    'San Antonio TX':     'e62ebd86-a5a4-4186-ab85-ed8d6a33d06b',
+  };
+  const labelIds = selectedMarkets.map(m => MARKET_LABEL_IDS[m]).filter(Boolean);
+  if (labelIds.length) fields.push({id: FIELD_IDS.marketsCovered, value: labelIds});
 
-  // Regional totals (from auto-sum)
+  // Regional totals
   addNum(FIELD_IDS.currentRevenue, 'kpi-revenue');
   addNum(FIELD_IDS.revenueNeeded, 'kpi-rev-needed');
   addNum(FIELD_IDS.apptsRan, 'kpi-appts-ran');
@@ -1121,47 +1065,52 @@ function buildCustomFields() {
   addBool(FIELD_IDS.officeClean, 'office-clean');
   addBool(FIELD_IDS.officeStocked, 'office-stocked');
 
-  // Follow Up
-  // Missing Money rows -> bundled into notes field
-  const mmData = collectRows('mm', [
-    {id:'homeowner',label:'Homeowner'},{id:'contact',label:'Contact'},
-    {id:'status',label:'Status'},{id:'amount',label:'Amount'},
-    {id:'pay-terms',label:'Pay Terms'},{id:'follow-up-date',label:'Follow Up'},
-    {id:'notes',label:'Notes'}
-  ]);
-  if (mmData) { add(FIELD_IDS.missingMoneyNotes, mmData); add(FIELD_IDS.missingMoneyFlag, 'true'); }
+  // Follow up rows bundled into text fields
+  const mmData = collectRows('mm', [{id:'homeowner',label:'Homeowner'},{id:'contact',label:'Contact'},{id:'status',label:'Status'},{id:'amount',label:'Amount'},{id:'pay-terms',label:'Pay Terms'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
+  if (mmData) { add(FIELD_IDS.missingMoneyNotes, mmData); fields.push({id: FIELD_IDS.missingMoneyFlag, value: true}); }
 
-  // Reschedule rows -> bundled into reschedule notes field
-  const rsData = collectRows('rs', [
-    {id:'homeowner',label:'Homeowner'},{id:'status',label:'Status'},
-    {id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}
-  ]);
+  const rsData = collectRows('rs', [{id:'homeowner',label:'Homeowner'},{id:'status',label:'Status'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
   if (rsData) add(FIELD_IDS.rescheduleNotes, rsData);
 
-  // Cancellation rows -> bundled into cancellation notes field
-  const canData = collectRows('can', [
-    {id:'homeowner',label:'Homeowner'},{id:'reason',label:'Reason'},
-    {id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}
-  ]);
+  // FIX: reschedule follow-up date — ClickUp date fields require millisecond timestamp, not string
+  const rsFollowUpEl = document.getElementById('rs-0-follow-up-date');
+  if (rsFollowUpEl && rsFollowUpEl.value) {
+    fields.push({id: FIELD_IDS.rescheduleFollowUp, value: String(new Date(rsFollowUpEl.value + 'T12:00:00').getTime())});
+  }
+
+  const canData = collectRows('can', [{id:'homeowner',label:'Homeowner'},{id:'reason',label:'Reason'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
   if (canData) add(FIELD_IDS.cancellationNotes, canData);
+
+  // FIX: cancellation follow-up date — same timestamp fix
+  const canFollowUpEl = document.getElementById('can-0-follow-up-date');
+  if (canFollowUpEl && canFollowUpEl.value) {
+    fields.push({id: FIELD_IDS.cancellationFollowUp, value: String(new Date(canFollowUpEl.value + 'T12:00:00').getTime())});
+  }
 
   addBool(FIELD_IDS.systemsPurgeGoogle, 'purge-google');
   addBool(FIELD_IDS.systemsPurgeBamboo, 'purge-bamboo');
   addBool(FIELD_IDS.systemsPurgeEnzy, 'purge-enzy');
   addBool(FIELD_IDS.systemsPurgeSiro, 'purge-siro');
-  addText(FIELD_IDS.rescheduleHomeowner, 'rs-homeowner');
-  addText(FIELD_IDS.rescheduleStatus, 'rs-status');
-  addText(FIELD_IDS.rescheduleContact, 'rs-contact');
-  addText(FIELD_IDS.rescheduleNotes, 'rs-notes');
-  addText(FIELD_IDS.rescheduleFollowUp, 'rs-follow-up-date');
-  addText(FIELD_IDS.cancellationHomeowner, 'can-homeowner');
-  addText(FIELD_IDS.cancellationReason, 'can-reason');
-  addText(FIELD_IDS.cancellationContact, 'can-contact');
-  addText(FIELD_IDS.cancellationNotes, 'can-notes');
-  addText(FIELD_IDS.cancellationFollowUp, 'can-follow-up-date');
   addText(FIELD_IDS.eodNotes, 'eod-notes');
 
-  // Per-market fields using live field IDs from MARKET_FIELDS
+  // FIX: San Antonio TX has unique field IDs for its reporting metrics (different naming in ClickUp)
+  // These are hardcoded because SA uses "San Antonio TX - Appointments Ran" not the standard suffix
+  const SA_SPECIAL_FIELDS = {
+    'current-revenue': 'deff6352-bd4d-4078-be4a-f6e38bb5450e',
+    'revenue-needed':  'eaa60f6e-2f29-4dfe-b882-dcaba0dd0593',
+    'appts-ran':       'c123ec65-ea45-45df-93cf-06a56799d1ce',
+    'appts-not-ran':   '23367983-c90a-44e9-8bd5-bf58d716b18f',
+    'appts-added':     '2e9f1ea1-a417-495c-80eb-4efef9ed2171',
+    'appts-needed':    'c2ba9bf9-2ff6-495c-90c1-e3a6f30a75c9',
+  };
+  if (selectedMarkets.includes('San Antonio TX')) {
+    Object.entries(SA_SPECIAL_FIELDS).forEach(([inputSuffix, fieldId]) => {
+      const el = document.getElementById(mf('San Antonio TX', inputSuffix));
+      if (el && el.value !== '') add(fieldId, parseFloat(el.value));
+    });
+  }
+
+  // Per-market fields
   selectedMarkets.forEach(market => {
     const mf_ids = MARKET_FIELDS[market] || {};
     const g = (suffix) => mf_ids[suffix];
@@ -1172,17 +1121,11 @@ function buildCustomFields() {
       if (!id) return;
       const el = document.getElementById(inputId);
       if (!el) return;
-      if (type === 'bool') fields.push({id, value: el.checked ? 'true' : 'false'});
-      else if (type === 'num') { if (el.value !== '') add(id, el.value); }
+      if (type === 'bool') fields.push({id, value: el.checked});
+      else if (type === 'num') { if (el.value !== '') add(id, parseFloat(el.value)); }
       else { if (el.value.trim()) add(id, el.value.trim()); }
     };
 
-    addMF('Current Revenue', fid('current-revenue'), 'num');
-    addMF('Revenue Needed', fid('revenue-needed'), 'num');
-    addMF('Appointments Ran', fid('appts-ran'), 'num');
-    addMF('Appointments Not Ran', fid('appts-not-ran'), 'num');
-    addMF('Appointments Added', fid('appts-added'), 'num');
-    addMF('Appointments Needed', fid('appts-needed'), 'num');
     addMF('Doors Knocked', fid('doors'), 'num');
     addMF('Conversations', fid('convos'), 'num');
     addMF('Appts Set', fid('appts-set'), 'num');
@@ -1192,7 +1135,10 @@ function buildCustomFields() {
     addMF('Candidates Hired', fid('candidates-hired'), 'num');
     addMF('Reps in Field', fid('reps-field'), 'num');
     addMF('Closers in Field', fid('closers-field'), 'num');
-    addMF('SIROs Listened', fid('siros-listened'), 'num');
+    addMF('SIRO Analytics Notes', fid('siro-notes'), 'text');
+    addMF('Team Meeting Topic', fid('team-topic'), 'text');
+    addMF('Closer Meeting Topic', fid('closer-topic'), 'text');
+    addMF('Notes', fid('notes'), 'text');
     addMF('Personnel Tracker Checked', fid('personnel-tracker'), 'bool');
     addMF('Recruiting Calendar Match', fid('rec-cal-match'), 'bool');
     addMF('Recruiting Calendar Status Updated', fid('rec-cal-updated'), 'bool');
@@ -1205,226 +1151,32 @@ function buildCustomFields() {
     addMF('SIRO Analytics Flag', fid('siro-flag'), 'bool');
     addMF('1st Check In', fid('check-in-1'), 'bool');
     addMF('2nd Check In', fid('check-in-2'), 'bool');
-    addMF('Team Meeting Topic', fid('team-topic'), 'text');
-    addMF('Closer Meeting Topic', fid('closer-topic'), 'text');
-    addMF('SIRO Analytics Notes', fid('siro-notes'), 'text');
-    addMF('Notes', fid('notes'), 'text');
   });
 
   return fields;
 }
 
 // ============================================================
-// BUILD EMAIL DATA
-// ============================================================
-function buildEmailData(rmName, date, markets) {
-  const lines = [`BRIGHTSIDE WINDOWS — DAILY SUBMISSION`, `Regional Manager: ${rmName}`, `Date: ${date}`, `Markets: ${markets}`, ``, `REGIONAL TOTALS`, `Current Revenue: $${document.getElementById('tot-revenue').textContent}`, `Revenue Needed: $${document.getElementById('tot-rev-needed').textContent}`, `Appointments Ran: ${document.getElementById('tot-appts-ran').textContent}`, `Appointments Not Ran: ${document.getElementById('tot-appts-not-ran').textContent}`, `Appointments Added: ${document.getElementById('tot-appts-added').textContent}`, `Appointments Needed: ${document.getElementById('tot-appts-needed').textContent}`, ``];
-
-  selectedMarkets.forEach(market => {
-    lines.push(`--- ${market.toUpperCase()} ---`);
-    const nums = ['current-revenue','revenue-needed','appts-ran','appts-not-ran','appts-added','appts-needed','doors','convos','appts-set','shadowed','rec-calls','interviews-ran','candidates-hired','reps-field','closers-field'];
-    const labels = ['Current Revenue','Revenue Needed','Appts Ran','Appts Not Ran','Appts Added','Appts Needed','Doors Knocked','Conversations','Appts Set','Shadowed','Recruiting Calls','Interviews Ran','Candidates Hired','Reps in Field','Closers in Field'];
-    nums.forEach((f,i) => {
-      const el = document.getElementById(mf(market,f));
-      if (el && el.value) lines.push(`${labels[i]}: ${el.value}`);
-    });
-    const noteEl = document.getElementById(mf(market,'notes'));
-    if (noteEl && noteEl.value) lines.push(`Notes: ${noteEl.value}`);
-    lines.push('');
-  });
-
-  // Add follow-up rows to email
-  const mmData = collectRows('mm', [{id:'homeowner',label:'Homeowner'},{id:'contact',label:'Contact'},{id:'status',label:'Status'},{id:'amount',label:'Amount'},{id:'pay-terms',label:'Pay Terms'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
-  if (mmData) { lines.push('MISSING MONEY'); lines.push(mmData); lines.push(''); }
-
-  const rsData = collectRows('rs', [{id:'homeowner',label:'Homeowner'},{id:'status',label:'Status'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
-  if (rsData) { lines.push('RESCHEDULE / PENDING'); lines.push(rsData); lines.push(''); }
-
-  const canData = collectRows('can', [{id:'homeowner',label:'Homeowner'},{id:'reason',label:'Reason'},{id:'contact',label:'Contact'},{id:'follow-up-date',label:'Follow Up'},{id:'notes',label:'Notes'}]);
-  if (canData) { lines.push('CANCELLATIONS'); lines.push(canData); lines.push(''); }
-
-  const eod = document.getElementById('eod-notes').value;
-  if (eod) { lines.push(`EOD NOTES`); lines.push(eod); }
-
-  return {
-    subject: `[Brightside] Daily Submission — ${rmName} — ${date} — ${markets}`,
-    body: lines.join('\n'),
-    to: 'formsubmissions@brightsidewindows.com'
-  };
-}
-
-// ============================================================
-// BUILD COMPACT EMAIL DATA (sent to Apps Script)
+// EMAIL DATA
 // ============================================================
 function buildCompactEmailData(rmName, date, markets) {
-  const data = {
-    rm: rmName,
-    date: date,
-    marketNames: markets,
+  return {
+    rm: rmName, date, marketNames: markets,
     revenue: document.getElementById('tot-revenue').textContent,
     revNeeded: document.getElementById('tot-rev-needed').textContent,
     apptsRan: document.getElementById('tot-appts-ran').textContent,
-    apptsNotRan: document.getElementById('tot-appts-not-ran').textContent,
-    apptsAdded: document.getElementById('tot-appts-added').textContent,
-    apptsNeeded: document.getElementById('tot-appts-needed').textContent,
     eod: document.getElementById('eod-notes').value || '',
-    markets: selectedMarkets.map(market => {
-      const g = (f) => mf(market, f);
-      const v = (f) => { const el = document.getElementById(g(f)); return (el && el.value) ? el.value : ''; };
-      return {
-        name: market,
-        revenue: v('current-revenue'),
-        revNeeded: v('revenue-needed'),
-        apptsRan: v('appts-ran'),
-        apptsNotRan: v('appts-not-ran'),
-        apptsAdded: v('appts-added'),
-        apptsNeeded: v('appts-needed'),
-        reps: v('reps-field'),
-        closers: v('closers-field'),
-        doors: v('doors'),
-        convos: v('convos'),
-        apptsSet: v('appts-set'),
-        shadowed: v('shadowed'),
-        recCalls: v('rec-calls'),
-        interviews: v('interviews-ran'),
-        hired: v('candidates-hired'),
-        notes: v('notes')
-      };
-    })
+    markets: selectedMarkets.map(market => ({
+      name: market,
+      revenue: document.getElementById(mf(market,'current-revenue'))?.value || '',
+      doors: document.getElementById(mf(market,'doors'))?.value || '',
+      apptsSet: document.getElementById(mf(market,'appts-set'))?.value || '',
+      notes: document.getElementById(mf(market,'notes'))?.value || ''
+    }))
   };
-  return data;
 }
 
-// ============================================================
-// RESET
-// ============================================================
-function resetForm() {
-  location.reload();
-}
-
-// ============================================================
-// PER-MARKET FIELD IDs — loaded dynamically from ClickUp
-// ============================================================
-async function loadMarketFields() {
-  try {
-    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
-      headers: { 'Authorization': CLICKUP_API_KEY }
-    });
-    const data = await res.json();
-    const allFields = data.fields || [];
-
-    const MARKETS = ["Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR","Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT","Boise ID","Salt Lake City UT","Denver CO","Reno NV","Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN","Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN","San Antonio TX"];
-    const SUFFIXES = ["Doors Knocked","Conversations","Appts Set","Shadowed","Notes","Recruiting Calls","Recruiting Scheduled","Recruiting Ran","Recruiting Offered","Personnel Tracker Checked","Recruiting Calendar Match","Recruiting Calendar Status Updated","Indeed Cleaned Out","Interviews Ran","Candidates Hired","Team Meeting Held","Team Meeting Topic","Closer Meeting Held","Closer Meeting Topic","Reps in Field","Closers in Field","Appointments Assigned","Appointments Confirmed","Appointments Resulted","SIRO Analytics Flag","SIRO Analytics Notes","1st Check In","2nd Check In"];
-
-    const fieldMap = {};
-    allFields.forEach(f => { fieldMap[f.name] = f.id; });
-
-    MARKETS.forEach(market => {
-      MARKET_FIELDS[market] = {};
-      SUFFIXES.forEach(suffix => {
-        const id = fieldMap[`${market} - ${suffix}`];
-        if (id) MARKET_FIELDS[market][suffix] = id;
-      });
-    });
-  } catch(e) {
-    console.error('Failed to load market fields:', e);
-  }
-}
-
-// Load fields on init
-loadMarketFields();
-
-// ============================================================
-// LOAD MARKETS FROM CLICKUP
-// ============================================================
-async function loadMarkets() {
-  const MARKETS_FIELD_ID = '0f6e3d30-61ea-4e70-8e11-c19228659932';
-  const grid = document.getElementById('market-grid');
-
-  try {
-    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
-      headers: { 'Authorization': CLICKUP_API_KEY }
-    });
-    const data = await res.json();
-    const mktField = data.fields.find(f => f.id === MARKETS_FIELD_ID);
-
-    if (!mktField || !mktField.type_config || !mktField.type_config.options) {
-      throw new Error('Markets field not found');
-    }
-
-    grid.innerHTML = '';
-    mktField.type_config.options
-      .sort((a,b) => a.orderindex - b.orderindex)
-      .forEach(opt => {
-        const div = document.createElement('div');
-        div.className = 'market-select-item';
-        div.textContent = opt.name;
-        div.dataset.market = opt.name;
-        div.onclick = () => toggleMarket(div, opt.name);
-        grid.appendChild(div);
-      });
-    console.log('Markets loaded from ClickUp:', mktField.type_config.options.map(o=>o.name));
-  } catch(e) {
-    console.error('Failed to load markets — using fallback:', e.message);
-    // Fallback to static list
-    const FALLBACK_MARKETS = [
-      "Portland OR","Vancouver WA","Salem OR","Eugene OR","Bend OR","Medford OR",
-      "Seattle WA","Everett WA","Silverdale WA","Kennewick WA","Spokane WA","Billings MT",
-      "Boise ID","Salt Lake City UT","Denver CO","Reno NV",
-      "Indianapolis IN","Kansas City KC","St Louis MO","Columbus OH","Minneapolis MN",
-      "Dallas Fort Worth TX","Houston TX","Austin TX","Oklahoma City TX","Dallas TX","Nashville TN","San Antonio TX"
-    ];
-    grid.innerHTML = '';
-    FALLBACK_MARKETS.forEach(name => {
-      const div = document.createElement('div');
-      div.className = 'market-select-item';
-      div.textContent = name;
-      div.dataset.market = name;
-      div.onclick = () => toggleMarket(div, name);
-      grid.appendChild(div);
-    });
-  }
-}
-
-// ============================================================
-// LOAD REGIONAL MANAGERS FROM CLICKUP
-// ============================================================
-async function loadRegionalManagers() {
-  const RM_FIELD_ID = 'f95adecd-f16a-4b9a-84b2-17ebbe2180d5';
-  const select = document.getElementById('sel-regional-manager');
-  try {
-    const res = await fetch(`https://api.clickup.com/api/v2/list/${LIST_ID}/field`, {
-      headers: { 'Authorization': CLICKUP_API_KEY }
-    });
-    const data = await res.json();
-    const rmField = data.fields.find(f => f.id === RM_FIELD_ID);
-    if (!rmField || !rmField.type_config || !rmField.type_config.options) {
-      throw new Error('Field not found');
-    }
-    select.innerHTML = '<option value="">— Select —</option>';
-    rmField.type_config.options
-      .sort((a,b) => a.orderindex - b.orderindex)
-      .forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.orderindex;
-        option.textContent = opt.name;
-        select.appendChild(option);
-      });
-    console.log('Regional Managers loaded from ClickUp:', rmField.type_config.options.map(o=>o.name));
-  } catch(e) {
-    console.error('Failed to load Regional Managers — using fallback:', e.message);
-    select.innerHTML = `
-      <option value="">— Select —</option>
-      <option value="0">Edgar Reyes</option>
-      <option value="1">James Amis</option>
-      <option value="2">Garrett Daly</option>
-      <option value="3">Undecided</option>
-      <option value="4">Anthony Sylvester</option>
-      <option value="5">Cade Perrins</option>
-      <option value="6">Matt Elkins</option>`;
-  }
-}
+function resetForm() { location.reload(); }
 </script>
-
 </body>
 </html>
